@@ -7,12 +7,12 @@
   
   <title>暨南大学个人赛林健斌wp(IP:s1m0n) | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="#汇编 ##Easy_Elf IDA对汇编代码进行反编译，看到sub_8048451()函数的返回值很关键，如果返回1则能跳转到正确，进入该函数查看。  看到21和24的值很直观，21要求为0x31,24要求为0x58。函数对20，22，23进行了异或，运算后可得20要求为0x4c，22要求为0x4e，23要求为0x55 查ASCII对应字符，按顺序排列得:L1NUX 得到flag:flag{L1">
+  <meta name="description" content="#汇编 ##Easy_Elf IDA对汇编代码进行反编译，看到sub_8048451()函数的返回值很关键，如果返回1则能跳转到正确，进入该函数查看。  看到21和24的值很直观，21要求为0x31,24要求为0x58。函数对20，22，23进行了异或，运算后可得20要求为0x4c，22要求为0x4e，23要求为0x55">
 <meta property="og:type" content="article">
 <meta property="og:title" content="暨南大学个人赛林健斌wp(IP:s1m0n)">
 <meta property="og:url" content="http://yoursite.com/2019/03/18/暨南大学个人赛林健斌wp/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="#汇编 ##Easy_Elf IDA对汇编代码进行反编译，看到sub_8048451()函数的返回值很关键，如果返回1则能跳转到正确，进入该函数查看。  看到21和24的值很直观，21要求为0x31,24要求为0x58。函数对20，22，23进行了异或，运算后可得20要求为0x4c，22要求为0x4e，23要求为0x55 查ASCII对应字符，按顺序排列得:L1NUX 得到flag:flag{L1">
+<meta property="og:description" content="#汇编 ##Easy_Elf IDA对汇编代码进行反编译，看到sub_8048451()函数的返回值很关键，如果返回1则能跳转到正确，进入该函数查看。  看到21和24的值很直观，21要求为0x31,24要求为0x58。函数对20，22，23进行了异或，运算后可得20要求为0x4c，22要求为0x4e，23要求为0x55">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://qqadapt.qpic.cn/txdocpic/0/db65e8ec11a64891ba909c9cb04305f3/0">
 <meta property="og:image" content="https://qqadapt.qpic.cn/txdocpic/0/5c755f44dd5bcbd0e71964a337fb6d85/0">
@@ -24,10 +24,10 @@
 <meta property="og:image" content="https://qqadapt.qpic.cn/txdocpic/0/9cc5ed2a7e1114a058c0f9e3d7330e7c/0">
 <meta property="og:image" content="https://qqadapt.qpic.cn/txdocpic/0/bbfd36acbd7c4722f5b6ae7a128c8b34/0">
 <meta property="og:image" content="https://qqadapt.qpic.cn/txdocpic/0/ebb08788dd4c6c34b4e18549d955e877/0">
-<meta property="og:updated_time" content="2018-10-21T15:36:52.292Z">
+<meta property="og:updated_time" content="2019-03-17T16:26:04.278Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="暨南大学个人赛林健斌wp(IP:s1m0n)">
-<meta name="twitter:description" content="#汇编 ##Easy_Elf IDA对汇编代码进行反编译，看到sub_8048451()函数的返回值很关键，如果返回1则能跳转到正确，进入该函数查看。  看到21和24的值很直观，21要求为0x31,24要求为0x58。函数对20，22，23进行了异或，运算后可得20要求为0x4c，22要求为0x4e，23要求为0x55 查ASCII对应字符，按顺序排列得:L1NUX 得到flag:flag{L1">
+<meta name="twitter:description" content="#汇编 ##Easy_Elf IDA对汇编代码进行反编译，看到sub_8048451()函数的返回值很关键，如果返回1则能跳转到正确，进入该函数查看。  看到21和24的值很直观，21要求为0x31,24要求为0x58。函数对20，22，23进行了异或，运算后可得20要求为0x4c，22要求为0x4e，23要求为0x55">
 <meta name="twitter:image" content="https://qqadapt.qpic.cn/txdocpic/0/db65e8ec11a64891ba909c9cb04305f3/0">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -101,8 +101,7 @@
 <p>##Easy_Elf</p>
 <p>IDA对汇编代码进行反编译，看到sub_8048451()函数的返回值很关键，如果返回1则能跳转到正确，进入该函数查看。</p>
 <p><img src="https://qqadapt.qpic.cn/txdocpic/0/db65e8ec11a64891ba909c9cb04305f3/0" alt="img"></p>
-<p>看到21和24的值很直观，21要求为0x31,24要求为0x58。函数对20，22，23进行了异或，运算后可得20要求为0x4c，22要求为0x4e，23要求为0x55</p>
-<p>查ASCII对应字符，按顺序排列得:L1NUX</p>
+<p>看到21和24的值很直观，21要求为0x31,24要求为0x58。函数对20，22，23进行了异或，运算后可得20要求为0x4c，22要求为0x4e，23要求为0x55<br><a id="more"></a><br>查ASCII对应字符，按顺序排列得:L1NUX</p>
 <p>得到flag:flag{L1NUX}</p>
 <p>##div<br>文本文件为AT&amp;T格式的汇编代码，对代码进行翻译，了解了执行过程，但是不知道怎么求N，于是直接把汇编代码在linux上跑一下。</p>
 <p>先编写一个普通的C程序，如图，执行gcc -S 生成汇编代码，对其中add()函数部分进行修改，改为题目代码，gcc -c生成.o文件，再gcc生成可执行文件。</p>
