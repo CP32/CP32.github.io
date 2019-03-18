@@ -152,33 +152,14 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-暨南大学个人赛林健斌wp" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-pragyan ctf2019 pwn部分wp" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/18/暨南大学个人赛林健斌wp/">暨南大学个人赛林健斌wp(IP:s1m0n)</a>
-    </h1>
-  
-
-        
-        <a href="/2019/03/18/暨南大学个人赛林健斌wp/" class="archive-article-date">
-  	<time datetime="2019-03-17T16:20:55.921Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-18</time>
-</a>
-        
-      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>#汇编</p>
-<p>##Easy_Elf</p>
-<p>IDA对汇编代码进行反编译，看到sub_8048451()函数的返回值很关键，如果返回1则能跳转到正确，进入该函数查看。</p>
-<p><img src="https://qqadapt.qpic.cn/txdocpic/0/db65e8ec11a64891ba909c9cb04305f3/0" alt="img"></p>
-<p>看到21和24的值很直观，21要求为0x31,24要求为0x58。函数对20，22，23进行了异或，运算后可得20要求为0x4c，22要求为0x4e，23要求为0x55<br>
+        <h3 id="第一题"><a href="#第一题" class="headerlink" title="第一题"></a><strong>第一题</strong></h3><p>源程序：<a href="https://github.com/CP32/pragyan-ctf19/blob/master/pragyan%20ctf19/feed%20me-pwn/challenge1" target="_blank" rel="noopener">challenge1</a><br>先丢进IDA，F5，分析运行过程。<br>程序先生成了3个随机数并输出，然后需要输入一个字符串s：<br>
         
-          <a class="article-more-a" href="/2019/03/18/暨南大学个人赛林健斌wp/#more">more >></a>
+          <a class="article-more-a" href="/2019/03/18/pragyan ctf2019 pwn部分wp/#more">more >></a>
         
       
 
@@ -191,7 +172,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/18/暨南大学个人赛林健斌wp/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/03/18/pragyan ctf2019 pwn部分wp/">展开全文 >></a>
         </p>
       
 
