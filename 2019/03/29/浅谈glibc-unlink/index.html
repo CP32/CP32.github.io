@@ -17,7 +17,7 @@
 <meta property="og:description" content="浅谈unlink刚开始看ctf-wiki上的unlink的原理介绍的时候简直一脸懵逼，后来上手这题stkof实战，同时看了其他writeup之后，终于算是有了些浅薄的理解。因此把unlink的过程记录下来，防止以后忘了。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://ctf-wiki.github.io/ctf-wiki/pwn/linux/glibc-heap/implementation/figure/unlink_smallbin_intro.png">
-<meta property="og:updated_time" content="2019-03-28T17:13:16.794Z">
+<meta property="og:updated_time" content="2019-03-28T17:16:04.418Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈glibc-unlink">
 <meta name="twitter:description" content="浅谈unlink刚开始看ctf-wiki上的unlink的原理介绍的时候简直一脸懵逼，后来上手这题stkof实战，同时看了其他writeup之后，终于算是有了些浅薄的理解。因此把unlink的过程记录下来，防止以后忘了。">
@@ -182,7 +182,7 @@
 <h6 id="现实："><a href="#现实：" class="headerlink" title="现实："></a>现实：</h6><p>理想很丰满，现实很骨感，怎么可能随随便便就让你利用。。。实际上，在glibc中还有这个检测机制：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (__builtin_expect (FD-&gt;bk != P || BK-&gt;fd != P, <span class="number">0</span>))                      </span><br><span class="line">  malloc_printerr (check_action, <span class="string">"corrupted double-linked list"</span>, P, AV);</span><br></pre></td></tr></table></figure>
 <p>按照上面构造，则有FD-&gt;bk=*(target addr)，若为GOT表项则不可能等于P，因此出错。但既然只是地址比较，那我们只要找（或者伪造）一个地址，里面存着P的地址不就解决了？所以我们可以考虑这样绕过检测机制：</p>
-<p><code>先定义chunk1-&gt;fd=fakeFD，chunk1-&gt;bk=fakeBK</code>，<code>*Q=P</code></p>
+<p>先定义<code>chunk1-&gt;fd=fakeFD，chunk1-&gt;bk=fakeBK，*Q=P</code></p>
 <p>然后构造使得</p>
 <ul>
 <li><code>fakeFD-&gt;bk==P</code>，即<code>*(fakeFD+12)=P，Q=fakeFD+12`</code></li>
@@ -226,6 +226,7 @@
 </ul>
 <p>至此，Q处的值被改为Q-12。</p>
 <h6 id="PS：以上都是以32位系统为前提，若为64位系统，则偏移相应要修改，如-12变为-0x18，-8变为-0x10。"><a href="#PS：以上都是以32位系统为前提，若为64位系统，则偏移相应要修改，如-12变为-0x18，-8变为-0x10。" class="headerlink" title="PS：以上都是以32位系统为前提，若为64位系统，则偏移相应要修改，如+12变为+0x18，+8变为+0x10。"></a>PS：以上都是以32位系统为前提，若为64位系统，则偏移相应要修改，如+12变为+0x18，+8变为+0x10。</h6><p>参考资料：</p>
+<p><a href="https://ctf-wiki.github.io/ctf-wiki/pwn/linux/glibc-heap/unlink/" target="_blank" rel="noopener">CTF-Wiki Unlink</a></p>
 
       
 
