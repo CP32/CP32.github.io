@@ -16,12 +16,12 @@
 <meta property="og:site_name" content="Phoenix">
 <meta property="og:description" content="浅谈unlink刚开始看ctf-wiki上的unlink的原理介绍的时候简直一脸懵逼，后来上手这题stkof实战，同时看了其他writeup之后，终于算是有了些浅薄的理解。因此把unlink的过程记录下来，防止以后忘了。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="d:/CTF/存题/pwn学习/堆/unlink/2014%20HITCON%20stkof/unlink.png">
-<meta property="og:updated_time" content="2019-03-28T16:50:42.631Z">
+<meta property="og:image" content="https://ctf-wiki.github.io/ctf-wiki/pwn/linux/glibc-heap/implementation/figure/unlink_smallbin_intro.png">
+<meta property="og:updated_time" content="2019-03-28T17:13:16.794Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈glibc-unlink">
 <meta name="twitter:description" content="浅谈unlink刚开始看ctf-wiki上的unlink的原理介绍的时候简直一脸懵逼，后来上手这题stkof实战，同时看了其他writeup之后，终于算是有了些浅薄的理解。因此把unlink的过程记录下来，防止以后忘了。">
-<meta name="twitter:image" content="d:/CTF/存题/pwn学习/堆/unlink/2014%20HITCON%20stkof/unlink.png">
+<meta name="twitter:image" content="https://ctf-wiki.github.io/ctf-wiki/pwn/linux/glibc-heap/implementation/figure/unlink_smallbin_intro.png">
   
     <link rel="alternative" href="/atom.xml" title="Phoenix" type="application/atom+xml">
   
@@ -164,7 +164,7 @@
         <h1 id="浅谈unlink"><a href="#浅谈unlink" class="headerlink" title="浅谈unlink"></a>浅谈unlink</h1><p>刚开始看ctf-wiki上的unlink的原理介绍的时候简直一脸懵逼，后来上手这题stkof实战，同时看了其他writeup之后，终于算是有了些浅薄的理解。因此把unlink的过程记录下来，防止以后忘了。</p>
 <a id="more"></a>
 <h4 id="什么是unlink？"><a href="#什么是unlink？" class="headerlink" title="什么是unlink？"></a>什么是unlink？</h4><p>unlink就是把一个空闲chunk从双向链表（如small bin）中拿出来，例如分配新chunk，或是free(p)时和p物理相邻的空闲chunk会和p进行前/后向合并（本文主要讲这种）。unlink的基本过程如下（图来自ctf-wiki）：</p>
-<p><img src="D:\CTF\存题\pwn学习\堆\unlink\2014 HITCON stkof\unlink.png" alt="1553697853937"></p>
+<p><img src="https://ctf-wiki.github.io/ctf-wiki/pwn/linux/glibc-heap/implementation/figure/unlink_smallbin_intro.png" alt="1553697853937"></p>
 <p>当有物理地址相邻的两个chunk，按地址从低到高chunk1-chunk2，其中chunk1是空闲状态，chunk2是分配状态，且chunk2为small chunk（large chunk似乎也可以，以后再研究下），这时候执行free(chunk2)，就会进行如下检测：</p>
 <h6 id="后向合并："><a href="#后向合并：" class="headerlink" title="后向合并："></a>后向合并：</h6><p>检测chunk2的prev_in_use位，看chunk1是否为空闲，若为空闲，则两个chunk内存合并，指向chunk2的指针改为指向chunk1，接着使用unlink宏，把chunk1从双向链表中移除，chunk1进入unsorted bin。</p>
 <h6 id="前向合并："><a href="#前向合并：" class="headerlink" title="前向合并："></a>前向合并：</h6><p>跟后向合并原理相似，检测chunk2的下个chunk（chunk3，物理地址比chunk2高）是否为空闲，空闲则合并，触发unlink宏，把chunk3从双向链表中移除。</p>
@@ -175,8 +175,8 @@
 </ul>
 <p>根据unlink宏，会有以下操作：</p>
 <ul>
-<li><code>FD-&gt;bk = BK，即 FD-&gt;bk= *(target addr-12+12)=BK=expect value，即 *(target addr)=expect value</code></li>
-<li><code>BK-&gt;fd = FD，即 *(expect value +8) = FD = target addr-12</code></li>
+<li><code>FD-&gt;bk = BK</code>，即 <code>FD-&gt;bk= *(target addr-12+12)=BK=expect value</code>，即 <code>*(target addr)=expect value</code></li>
+<li><code>BK-&gt;fd = FD</code>，即 <code>*(expect value +8) = FD = target addr-12</code></li>
 </ul>
 <p>由此可实现任意地址写，例如修改GOT表项。虽然expect value +8地址的值被覆盖了有可能有小问题。</p>
 <h6 id="现实："><a href="#现实：" class="headerlink" title="现实："></a>现实：</h6><p>理想很丰满，现实很骨感，怎么可能随随便便就让你利用。。。实际上，在glibc中还有这个检测机制：</p>
@@ -185,8 +185,8 @@
 <p><code>先定义chunk1-&gt;fd=fakeFD，chunk1-&gt;bk=fakeBK</code>，<code>*Q=P</code></p>
 <p>然后构造使得</p>
 <ul>
-<li><code>fakeFD-&gt;bk==P，即*(fakeFD+12)=P</code>，<code>Q=fakeFD+12</code></li>
-<li><code>fakeBK-&gt;fd=P，即*(fakeBK+8)=P</code>，<code>Q=fakeBK+8</code></li>
+<li><code>fakeFD-&gt;bk==P</code>，即<code>*(fakeFD+12)=P，Q=fakeFD+12`</code></li>
+<li><code>fakeBK-&gt;fd=P</code>，即<code>*(fakeBK+8)=P，Q=fakeBK+8`</code></li>
 </ul>
 <table>
 <thead>
@@ -216,8 +216,8 @@
 </table>
 <p>这样便满足条件，绕过了检测机制，从而调用unlink宏：</p>
 <ul>
-<li><code>fakeFD-&gt;bk=fakeBK，即*(fakeFD+12)=fakeBK</code></li>
-<li><code>fakeBK-&gt;fd=fakeFD，即*(fakeBK+8)=fakeFD</code></li>
+<li><code>fakeFD-&gt;bk=fakeBK</code>，即<code>*(fakeFD+12)=fakeBK</code></li>
+<li><code>fakeBK-&gt;fd=fakeFD</code>，即<code>*(fakeBK+8)=fakeFD</code></li>
 </ul>
 <p>又由上面的构造条件可得：</p>
 <ul>
