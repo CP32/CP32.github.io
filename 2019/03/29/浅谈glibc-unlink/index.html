@@ -8,19 +8,19 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>浅谈glibc-unlink | Phoenix</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="浅谈unlink刚开始看ctf-wiki上的unlink的原理介绍的时候简直一脸懵逼，后来上手这题stkof实战，同时看了其他writeup之后，终于算是有了些浅薄的理解。因此把unlink的过程记录下来，防止以后忘了。 什么是unlink？unlink就是把一个空闲chunk从双向链表（如small bin）中拿出来，例如分配新chunk，或是free(p)时和p物理相邻的空闲chunk会和p进">
+  <meta name="description" content="浅谈unlink刚开始看ctf-wiki上的unlink的原理介绍的时候简直一脸懵逼，后来上手这题stkof实战，同时看了其他writeup之后，终于算是有了些浅薄的理解。因此把unlink的过程记录下来，防止以后忘了。">
 <meta name="keywords" content="pwn,re">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浅谈glibc-unlink">
 <meta property="og:url" content="http://yoursite.com/2019/03/29/浅谈glibc-unlink/index.html">
 <meta property="og:site_name" content="Phoenix">
-<meta property="og:description" content="浅谈unlink刚开始看ctf-wiki上的unlink的原理介绍的时候简直一脸懵逼，后来上手这题stkof实战，同时看了其他writeup之后，终于算是有了些浅薄的理解。因此把unlink的过程记录下来，防止以后忘了。 什么是unlink？unlink就是把一个空闲chunk从双向链表（如small bin）中拿出来，例如分配新chunk，或是free(p)时和p物理相邻的空闲chunk会和p进">
+<meta property="og:description" content="浅谈unlink刚开始看ctf-wiki上的unlink的原理介绍的时候简直一脸懵逼，后来上手这题stkof实战，同时看了其他writeup之后，终于算是有了些浅薄的理解。因此把unlink的过程记录下来，防止以后忘了。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="d:/CTF/存题/pwn学习/堆/unlink/2014%20HITCON%20stkof/unlink.png">
-<meta property="og:updated_time" content="2019-03-28T16:43:20.366Z">
+<meta property="og:updated_time" content="2019-03-28T16:50:42.631Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈glibc-unlink">
-<meta name="twitter:description" content="浅谈unlink刚开始看ctf-wiki上的unlink的原理介绍的时候简直一脸懵逼，后来上手这题stkof实战，同时看了其他writeup之后，终于算是有了些浅薄的理解。因此把unlink的过程记录下来，防止以后忘了。 什么是unlink？unlink就是把一个空闲chunk从双向链表（如small bin）中拿出来，例如分配新chunk，或是free(p)时和p物理相邻的空闲chunk会和p进">
+<meta name="twitter:description" content="浅谈unlink刚开始看ctf-wiki上的unlink的原理介绍的时候简直一脸懵逼，后来上手这题stkof实战，同时看了其他writeup之后，终于算是有了些浅薄的理解。因此把unlink的过程记录下来，防止以后忘了。">
 <meta name="twitter:image" content="d:/CTF/存题/pwn学习/堆/unlink/2014%20HITCON%20stkof/unlink.png">
   
     <link rel="alternative" href="/atom.xml" title="Phoenix" type="application/atom+xml">
@@ -174,6 +174,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="浅谈unlink"><a href="#浅谈unlink" class="headerlink" title="浅谈unlink"></a>浅谈unlink</h1><p>刚开始看ctf-wiki上的unlink的原理介绍的时候简直一脸懵逼，后来上手这题stkof实战，同时看了其他writeup之后，终于算是有了些浅薄的理解。因此把unlink的过程记录下来，防止以后忘了。</p>
+<a id="more"></a>
 <h4 id="什么是unlink？"><a href="#什么是unlink？" class="headerlink" title="什么是unlink？"></a>什么是unlink？</h4><p>unlink就是把一个空闲chunk从双向链表（如small bin）中拿出来，例如分配新chunk，或是free(p)时和p物理相邻的空闲chunk会和p进行前/后向合并（本文主要讲这种）。unlink的基本过程如下（图来自ctf-wiki）：</p>
 <p><img src="D:\CTF\存题\pwn学习\堆\unlink\2014 HITCON stkof\unlink.png" alt="1553697853937"></p>
 <p>当有物理地址相邻的两个chunk，按地址从低到高chunk1-chunk2，其中chunk1是空闲状态，chunk2是分配状态，且chunk2为small chunk（large chunk似乎也可以，以后再研究下），这时候执行free(chunk2)，就会进行如下检测：</p>
@@ -485,27 +486,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
         <ul class="search-ul">
           
             <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接1</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接2</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接3</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接4</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接5</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接6</a>
+              <a href="https://apeng.fun" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>apeng</a>
             </li>
           
         </ul>
@@ -516,7 +497,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">二进制真是太有趣了</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">pwn手一枚，目前博客主要用来记录一些学习过程和write up,如果有什么错误还忘大佬们指正\n联系方式:wechat:JB331036432\nQQ:331036432\n邮箱：331036432@qq.com</div>
   	  	
     	</section>
     
