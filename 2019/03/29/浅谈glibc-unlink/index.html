@@ -8,19 +8,19 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>浅谈glibc-unlink | Phoenix</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="浅谈unlink刚开始看ctf-wiki上的unlink的原理介绍的时候简直一脸懵逼，后来上手这题stkof实战，同时看了其他writeup之后，终于算是有了些浅薄的理解。因此把unlink的过程记录下来，防止以后忘了。">
+  <meta name="description" content="刚开始看ctf-wiki上的unlink的原理介绍的时候简直一脸懵逼，后来上手这题stkof实战，同时看了其他writeup之后，终于算是有了些浅薄的理解。因此把unlink的过程记录下来，防止以后忘了。">
 <meta name="keywords" content="pwn,re">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浅谈glibc-unlink">
 <meta property="og:url" content="http://yoursite.com/2019/03/29/浅谈glibc-unlink/index.html">
 <meta property="og:site_name" content="Phoenix">
-<meta property="og:description" content="浅谈unlink刚开始看ctf-wiki上的unlink的原理介绍的时候简直一脸懵逼，后来上手这题stkof实战，同时看了其他writeup之后，终于算是有了些浅薄的理解。因此把unlink的过程记录下来，防止以后忘了。">
+<meta property="og:description" content="刚开始看ctf-wiki上的unlink的原理介绍的时候简直一脸懵逼，后来上手这题stkof实战，同时看了其他writeup之后，终于算是有了些浅薄的理解。因此把unlink的过程记录下来，防止以后忘了。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://ctf-wiki.github.io/ctf-wiki/pwn/linux/glibc-heap/implementation/figure/unlink_smallbin_intro.png">
-<meta property="og:updated_time" content="2019-03-28T17:16:04.418Z">
+<meta property="og:updated_time" content="2019-03-29T04:20:39.636Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈glibc-unlink">
-<meta name="twitter:description" content="浅谈unlink刚开始看ctf-wiki上的unlink的原理介绍的时候简直一脸懵逼，后来上手这题stkof实战，同时看了其他writeup之后，终于算是有了些浅薄的理解。因此把unlink的过程记录下来，防止以后忘了。">
+<meta name="twitter:description" content="刚开始看ctf-wiki上的unlink的原理介绍的时候简直一脸懵逼，后来上手这题stkof实战，同时看了其他writeup之后，终于算是有了些浅薄的理解。因此把unlink的过程记录下来，防止以后忘了。">
 <meta name="twitter:image" content="https://ctf-wiki.github.io/ctf-wiki/pwn/linux/glibc-heap/implementation/figure/unlink_smallbin_intro.png">
   
     <link rel="alternative" href="/atom.xml" title="Phoenix" type="application/atom+xml">
@@ -161,7 +161,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="浅谈unlink"><a href="#浅谈unlink" class="headerlink" title="浅谈unlink"></a>浅谈unlink</h1><p>刚开始看ctf-wiki上的unlink的原理介绍的时候简直一脸懵逼，后来上手这题stkof实战，同时看了其他writeup之后，终于算是有了些浅薄的理解。因此把unlink的过程记录下来，防止以后忘了。</p>
+        <p>刚开始看ctf-wiki上的unlink的原理介绍的时候简直一脸懵逼，后来上手这题stkof实战，同时看了其他writeup之后，终于算是有了些浅薄的理解。因此把unlink的过程记录下来，防止以后忘了。</p>
 <a id="more"></a>
 <h4 id="什么是unlink？"><a href="#什么是unlink？" class="headerlink" title="什么是unlink？"></a>什么是unlink？</h4><p>unlink就是把一个空闲chunk从双向链表（如small bin）中拿出来，例如分配新chunk，或是free(p)时和p物理相邻的空闲chunk会和p进行前/后向合并（本文主要讲这种）。unlink的基本过程如下（图来自ctf-wiki）：</p>
 <p><img src="https://ctf-wiki.github.io/ctf-wiki/pwn/linux/glibc-heap/implementation/figure/unlink_smallbin_intro.png" alt="1553697853937"></p>
@@ -225,7 +225,9 @@
 <li><code>*Q=Q-12</code></li>
 </ul>
 <p>至此，Q处的值被改为Q-12。</p>
-<h6 id="PS：以上都是以32位系统为前提，若为64位系统，则偏移相应要修改，如-12变为-0x18，-8变为-0x10。"><a href="#PS：以上都是以32位系统为前提，若为64位系统，则偏移相应要修改，如-12变为-0x18，-8变为-0x10。" class="headerlink" title="PS：以上都是以32位系统为前提，若为64位系统，则偏移相应要修改，如+12变为+0x18，+8变为+0x10。"></a>PS：以上都是以32位系统为前提，若为64位系统，则偏移相应要修改，如+12变为+0x18，+8变为+0x10。</h6><p>参考资料：</p>
+<p><strong>PS：以上都是以32位系统为前提，若为64位系统，则偏移相应要修改，如+12变为+0x18，+8变为+0x10。</strong></p>
+<p>对应题目：<a href="https://github.com/CP32/ctf-pwn/tree/master/2014%20HITCON%20stkof" target="_blank" rel="noopener">2014HITCON stkof</a></p>
+<p>参考资料：</p>
 <p><a href="https://ctf-wiki.github.io/ctf-wiki/pwn/linux/glibc-heap/unlink/" target="_blank" rel="noopener">CTF-Wiki Unlink</a></p>
 
       
