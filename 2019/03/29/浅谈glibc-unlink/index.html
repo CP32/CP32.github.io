@@ -17,7 +17,7 @@
 <meta property="og:description" content="刚开始看ctf-wiki上的unlink的原理介绍的时候简直一脸懵逼，后来上手这题stkof实战，同时看了其他writeup之后，终于算是有了些浅薄的理解。因此把unlink的过程记录下来，防止以后忘了。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://ctf-wiki.github.io/ctf-wiki/pwn/linux/glibc-heap/implementation/figure/unlink_smallbin_intro.png">
-<meta property="og:updated_time" content="2019-03-29T04:20:39.636Z">
+<meta property="og:updated_time" content="2019-03-29T06:20:53.358Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈glibc-unlink">
 <meta name="twitter:description" content="刚开始看ctf-wiki上的unlink的原理介绍的时候简直一脸懵逼，后来上手这题stkof实战，同时看了其他writeup之后，终于算是有了些浅薄的理解。因此把unlink的过程记录下来，防止以后忘了。">
@@ -167,6 +167,7 @@
 <p><img src="https://ctf-wiki.github.io/ctf-wiki/pwn/linux/glibc-heap/implementation/figure/unlink_smallbin_intro.png" alt="1553697853937"></p>
 <p>当有物理地址相邻的两个chunk，按地址从低到高chunk1-chunk2，其中chunk1是空闲状态，chunk2是分配状态，且chunk2为small chunk（large chunk似乎也可以，以后再研究下），这时候执行free(chunk2)，就会进行如下检测：</p>
 <h6 id="后向合并："><a href="#后向合并：" class="headerlink" title="后向合并："></a>后向合并：</h6><p>检测chunk2的prev_in_use位，看chunk1是否为空闲，若为空闲，则两个chunk内存合并，指向chunk2的指针改为指向chunk1，接着使用unlink宏，把chunk1从双向链表中移除，chunk1进入unsorted bin。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!prev_inuse(p)) &#123;</span><br><span class="line">    prevsize = prev_size(p);</span><br><span class="line">    size += prevsize;</span><br><span class="line">    p = chunk_at_offset(p, -((<span class="keyword">long</span>) prevsize));</span><br><span class="line">    unlink(av, p, bck, fwd);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h6 id="前向合并："><a href="#前向合并：" class="headerlink" title="前向合并："></a>前向合并：</h6><p>跟后向合并原理相似，检测chunk2的下个chunk（chunk3，物理地址比chunk2高）是否为空闲，空闲则合并，触发unlink宏，把chunk3从双向链表中移除。</p>
 <h4 id="利用："><a href="#利用：" class="headerlink" title="利用："></a>利用：</h4><h6 id="理想："><a href="#理想：" class="headerlink" title="理想："></a>理想：</h6><p>了解了unlink的触发机制后，我们就要想怎么利用它了。显然，要把chunk1从链表中移除，最重要的就是fd和bk指针了，所以我们从它下手。回到上面的图中，我们构造：（P为chunk1地址）</p>
 <ul>
@@ -300,6 +301,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2019/04/07/西湖论剑pwn部分writeup/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          西湖论剑pwn部分writeup
+        
+      </div>
+    </a>
   
   
     <a href="/2019/03/18/pragyan-ctf2019-pwn部分wp/" id="article-nav-older" class="article-nav-link-wrap">
