@@ -18,7 +18,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://github.com/CP32/ctf-pwn/blob/master/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%912019/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190407191455.png?raw=true">
 <meta property="og:image" content="https://raw.githubusercontent.com/CP32/ctf-pwn/master/%E8%A5%BF%E6%B9%96%E8%AE%BA%E5%89%912019/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190407194055.png">
-<meta property="og:updated_time" content="2019-04-07T12:13:56.530Z">
+<meta property="og:updated_time" content="2019-04-24T09:28:52.804Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="西湖论剑pwn部分writeup">
 <meta name="twitter:description" content="这次一共有3道pwn题，出了2道，1道是简单格式化字符串+栈溢出，1道是简单堆UAF，还有一道以为是unlink结果开了PIE不知道怎么下手。 题目源文件：link，文件夹中的可能打了patch，压缩包中的是原题。">
@@ -176,7 +176,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[*] &apos;/home/ljb/ctf/xihu2019/noinfoleak&apos;</span><br><span class="line">    Arch:     amd64-64-little</span><br><span class="line">    RELRO:    Partial RELRO</span><br><span class="line">    Stack:    Canary found</span><br><span class="line">    NX:       NX enabled</span><br><span class="line">    PIE:      No PIE (0x400000)</span><br></pre></td></tr></table></figure>
 <p>IDA分析，程序分为3部分功能，1：create，2：delete，3：edit。其中在delete部分存在一个UAF漏洞，只释放了堆空间但没有把存储指针的地方清零。所有堆的地址存储在bss段，下面称呼为info数组。</p>
 <p><code>free(info[2 * v0]);                         // UAF</code></p>
-<p>因为为Partial RELRO，而且没开PIE，因此考虑修改GOT表来get shell。又因为UAF漏洞，所以应该是把利用改fd，达成任意地址写。一开始思路错了，想直接把堆迁移到GOT表上，结果发现对size的验证导致出错。后来想了想换成把堆迁移到bss段上。</p>
+<p>因为防护为Partial RELRO，而且没开PIE，因此考虑修改GOT表来get shell。又因为UAF漏洞，所以应该是利用改fd，达成任意地址写。一开始思路错了，想直接把堆迁移到GOT表上，结果发现对size的验证导致出错。后来想了想换成把堆迁移到bss段上。</p>
 <h5 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h5><p>首先，申请几个堆，这里应该是要至少3个，比赛时没考虑直接申请了5个，不影响。然后再申请一个大小为0x18（大于0X18也可以）的堆A。之后delete(A)，利用UAF，把A的fd改成info首地址。然后重新把A申请回来，这时A原来所在的fastbin的fd指针会指向info首地址。再申请一个0x18大小的地址，就会把info开始的一块空间当作堆B分配出去。（这里要注意堆B的size要设好，就是info[1]，这里应设为0x31，否则会报错）</p>
 <p>接下来对堆B的内容修改，相当于对info进行修改，所以我们把info[2]改为free_got，info[4]改为read_got，接下来调用edit函数，修改index为1的堆，这个堆的地址存在info[2]，则可以达成把free_got改为puts_plt，然后调用delete(2)，达成puts(read_got)，即可泄露read的地址，计算出libc偏移。</p>
 <p>之后就简单了，故技重施，把free_got改为system，info[4]中放”/bin/sh”的地址，再调用delete(2)，达成system(“/bin/sh”)，get shell成功！</p>
