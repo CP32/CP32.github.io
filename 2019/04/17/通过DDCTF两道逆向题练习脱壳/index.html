@@ -24,7 +24,7 @@
 <meta property="og:image" content="https://github.com/CP32/ctf-pwn/blob/master/DDCTF2019/check.PNG?raw=true">
 <meta property="og:image" content="https://github.com/CP32/ctf-pwn/blob/master/DDCTF2019/peid.PNG?raw=true">
 <meta property="og:image" content="https://github.com/CP32/ctf-pwn/blob/master/DDCTF2019/2main.PNG?raw=true">
-<meta property="og:updated_time" content="2019-04-24T09:25:42.272Z">
+<meta property="og:updated_time" content="2019-04-24T09:29:43.571Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="通过DDCTF两道逆向题练习脱壳">
 <meta name="twitter:description" content="明天出发去打西湖论剑线下了，然后今天守望又出了PVE，心有点不定，啥都不想做。。。不想浪费时间，刚好最近做了DDCTF的前两道逆向都是脱壳的，手动脱壳还没试过，就记下来。（其实是因为第一题UPX工具脱壳脱出来不好所以手动orz） 前置工作：之前还没用过IDA在windows上调试，都是用OD或者xdbg。这次本来也想在OD脱的，结果太菜了一进去就不知道是什么情况了。。。想着还是IDA舒服，趁机学一">
@@ -170,6 +170,7 @@
       
         <p>明天出发去打西湖论剑线下了，然后今天守望又出了PVE，心有点不定，啥都不想做。。。不想浪费时间，刚好最近做了DDCTF的前两道逆向都是脱壳的，手动脱壳还没试过，就记下来。（其实是因为第一题UPX工具脱壳脱出来不好所以手动orz）</p>
 <h5 id="前置工作："><a href="#前置工作：" class="headerlink" title="前置工作："></a>前置工作：</h5><p>之前还没用过IDA在windows上调试，都是用OD或者xdbg。这次本来也想在OD脱的，结果太菜了一进去就不知道是什么情况了。。。想着还是IDA舒服，趁机学一下。结合IDA在linux的调试要开调试进程，在IDA的文件夹下搜到了这个：</p>
+<a id="more"></a>
 <p><img src="https://github.com/CP32/ctf-pwn/blob/master/DDCTF2019/ida-remote.png?raw=true" alt></p>
 <p>这题是32位的，所以运行最上面的那个。然后在IDA选择Debugger-&gt;Select debugger-&gt;Local Windows debugger。</p>
 <p><img src="https://github.com/CP32/ctf-pwn/blob/master/DDCTF2019/windows_debug.png?raw=true" alt></p>
