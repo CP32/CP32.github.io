@@ -18,7 +18,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://github.com/CP32/ctf-pwn/blob/master/2019Aurora%E5%86%85%E9%83%A8%E8%B5%9B/face%20wall%201.jpg?raw=true">
 <meta property="og:image" content="https://github.com/CP32/ctf-pwn/blob/master/2019Aurora%E5%86%85%E9%83%A8%E8%B5%9B/face%20wall%20project/cat%20flag.jpg?raw=true">
-<meta property="og:updated_time" content="2019-06-11T06:09:30.644Z">
+<meta property="og:updated_time" content="2019-06-11T06:12:11.750Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Aurora内部赛pwn writeup">
 <meta name="twitter:description" content="所有题目和源文件：链接 face wall project checksec分析1234567[*] &amp;apos;/home/ljb/ctf/aurora/face_wall_project/break_the_wall&amp;apos;    Arch:     amd64-64-little    RELRO:    Partial RELRO    Stack:    No canary foun">
@@ -166,6 +166,7 @@
 <h3 id="face-wall-project"><a href="#face-wall-project" class="headerlink" title="face wall project"></a>face wall project</h3><hr>
 <h5 id="checksec分析"><a href="#checksec分析" class="headerlink" title="checksec分析"></a>checksec分析</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[*] &apos;/home/ljb/ctf/aurora/face_wall_project/break_the_wall&apos;</span><br><span class="line">    Arch:     amd64-64-little</span><br><span class="line">    RELRO:    Partial RELRO</span><br><span class="line">    Stack:    No canary found</span><br><span class="line">    NX:       NX disabled</span><br><span class="line">    PIE:      PIE enabled</span><br><span class="line">    RWX:      Has RWX segments</span><br></pre></td></tr></table></figure>
 <p>除了PIE开启，其他全关</p>
+<a id="more"></a>
 <p>IDA打开，F5，发现如下报错。找到那一行，发现是调用了buf的指令，理解之后把那一行nop掉，再F5，就能正常分析了。</p>
 <p><img src="https://github.com/CP32/ctf-pwn/blob/master/2019Aurora%E5%86%85%E9%83%A8%E8%B5%9B/face%20wall%201.jpg?raw=true" alt></p>
 <p>分析发现是读入30字节的数据。</p>
