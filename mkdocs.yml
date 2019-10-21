@@ -26,3 +26,5 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.tasklist
   - pymdownx.tilde
+nav:
+  - 介绍: index.md
