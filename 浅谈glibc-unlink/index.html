@@ -1,0 +1,572 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.3">
+    
+    
+      
+        <title>浅谈glibc-unlink</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application.30686662.css">
+      
+      
+    
+    
+      <script src="../assets/javascripts/modernizr.74668098.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../assets/fonts/material-icons.css">
+    
+    
+    
+      
+    
+    
+  </head>
+  
+    <body dir="ltr">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#unlink" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href=".." title="My Docs" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              My Docs
+            </span>
+            <span class="md-header-nav__topic">
+              
+                浅谈glibc-unlink
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main" role="main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href=".." title="My Docs" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    My Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Welcome to MkDocs" class="md-nav__link">
+      Welcome to MkDocs
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../Aurora内部赛pwn-writeup/" title="Aurora内部赛pwn writeup" class="md-nav__link">
+      Aurora内部赛pwn writeup
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../pragyan-ctf2019-pwn部分wp/" title="pragyan ctf2019 pwn部分wp" class="md-nav__link">
+      pragyan ctf2019 pwn部分wp
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        浅谈glibc-unlink
+      </label>
+    
+    <a href="./" title="浅谈glibc-unlink" class="md-nav__link md-nav__link--active">
+      浅谈glibc-unlink
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#unlink" class="md-nav__link">
+    什么是unlink？
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    后向合并：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    前向合并：
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    利用：
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    理想：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    现实：
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../西湖论剑pwn部分writeup/" title="西湖论剑pwn部分writeup" class="md-nav__link">
+      西湖论剑pwn部分writeup
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../通过DDCTF两道逆向题练习脱壳/" title="通过DDCTF两道逆向题练习脱壳" class="md-nav__link">
+      通过DDCTF两道逆向题练习脱壳
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#unlink" class="md-nav__link">
+    什么是unlink？
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    后向合并：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    前向合并：
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    利用：
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    理想：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    现实：
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>浅谈glibc-unlink</h1>
+                
+                <p>刚开始看ctf-wiki上的unlink的原理介绍的时候简直一脸懵逼，后来上手这题stkof实战，同时看了其他writeup之后，终于算是有了些浅薄的理解。因此把unlink的过程记录下来，防止以后忘了。</p>
+<!--more-->
+
+<h4 id="unlink">什么是unlink？<a class="headerlink" href="#unlink" title="Permanent link">&para;</a></h4>
+<p>unlink就是把一个空闲chunk从双向链表（如small bin）中拿出来，例如分配新chunk，或是free(p)时和p物理相邻的空闲chunk会和p进行前/后向合并（本文主要讲这种）。unlink的基本过程如下（图来自ctf-wiki）：</p>
+<p><img alt="1553697853937" src="https://ctf-wiki.github.io/ctf-wiki/pwn/linux/glibc-heap/implementation/figure/unlink_smallbin_intro.png" /></p>
+<p>当有物理地址相邻的两个chunk，按地址从低到高chunk1-chunk2，其中chunk1是空闲状态，chunk2是分配状态，且chunk2为small chunk（large chunk似乎也可以，以后再研究下），这时候执行free(chunk2)，就会进行如下检测：</p>
+<h6 id="_1">后向合并：<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h6>
+<p>检测chunk2的prev_in_use位，看chunk1是否为空闲，若为空闲，则两个chunk内存合并，指向chunk2的指针改为指向chunk1，接着使用unlink宏，把chunk1从双向链表中移除，chunk1进入unsorted bin。</p>
+<div class="codehilite"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">prev_inuse</span><span class="p">(</span><span class="n">p</span><span class="p">))</span> <span class="p">{</span>
+    <span class="n">prevsize</span> <span class="o">=</span> <span class="n">prev_size</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+    <span class="n">size</span> <span class="o">+=</span> <span class="n">prevsize</span><span class="p">;</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">chunk_at_offset</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="o">-</span><span class="p">((</span><span class="kt">long</span><span class="p">)</span> <span class="n">prevsize</span><span class="p">));</span>
+    <span class="n">unlink</span><span class="p">(</span><span class="n">av</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">bck</span><span class="p">,</span> <span class="n">fwd</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+
+<h6 id="_2">前向合并：<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h6>
+<p>跟后向合并原理相似，检测chunk2的下个chunk（chunk3，物理地址比chunk2高）是否为空闲，空闲则合并，触发unlink宏，把chunk3从双向链表中移除。</p>
+<h4 id="_3">利用：<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
+<h6 id="_4">理想：<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h6>
+<p>了解了unlink的触发机制后，我们就要想怎么利用它了。显然，要把chunk1从链表中移除，最重要的就是fd和bk指针了，所以我们从它下手。回到上面的图中，我们构造：（P为chunk1地址）</p>
+<ul>
+<li><code>FD=P-&gt;fd = target addr -12</code></li>
+<li><code>BK=P-&gt;bk = expect value</code></li>
+</ul>
+<p>根据unlink宏，会有以下操作：</p>
+<ul>
+<li><code>FD-&gt;bk = BK</code>，即 <code>FD-&gt;bk= *(target addr-12+12)=BK=expect value</code>，即 <code>*(target addr)=expect value</code></li>
+<li><code>BK-&gt;fd = FD</code>，即 <code>*(expect value +8) = FD = target addr-12</code></li>
+</ul>
+<p>由此可实现任意地址写，例如修改GOT表项。虽然expect value +8地址的值被覆盖了有可能有小问题。</p>
+<h6 id="_5">现实：<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h6>
+<p>理想很丰满，现实很骨感，怎么可能随随便便就让你利用。。。实际上，在glibc中还有这个检测机制：</p>
+<div class="codehilite"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">__builtin_expect</span> <span class="p">(</span><span class="n">FD</span><span class="o">-&gt;</span><span class="n">bk</span> <span class="o">!=</span> <span class="n">P</span> <span class="o">||</span> <span class="n">BK</span><span class="o">-&gt;</span><span class="n">fd</span> <span class="o">!=</span> <span class="n">P</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>                      
+  <span class="n">malloc_printerr</span> <span class="p">(</span><span class="n">check_action</span><span class="p">,</span> <span class="s">&quot;corrupted double-linked list&quot;</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">AV</span><span class="p">);</span>  
+</pre></div>
+
+<p>按照上面构造，则有FD-&gt;bk=*(target addr)，若为GOT表项则不可能等于P，因此出错。但既然只是地址比较，那我们只要找（或者伪造）一个地址，里面存着P的地址不就解决了？所以我们可以考虑这样绕过检测机制：</p>
+<p>先定义<code>chunk1-&gt;fd=fakeFD，chunk1-&gt;bk=fakeBK，*Q=P</code></p>
+<p>然后构造使得</p>
+<ul>
+<li><code>fakeFD-&gt;bk==P</code>，即`*(fakeFD+12)=P，Q=fakeFD+12``</li>
+<li><code>fakeBK-&gt;fd=P</code>，即`*(fakeBK+8)=P，Q=fakeBK+8``</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">地址</th>
+<th align="left">值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">+00:   fakeFD</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">+04:   fakeBK</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">+08</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">+12:     Q</td>
+<td align="left">P</td>
+</tr>
+</tbody>
+</table>
+<p>这样便满足条件，绕过了检测机制，从而调用unlink宏：</p>
+<ul>
+<li><code>fakeFD-&gt;bk=fakeBK</code>，即<code>*(fakeFD+12)=fakeBK</code></li>
+<li><code>fakeBK-&gt;fd=fakeFD</code>，即<code>*(fakeBK+8)=fakeFD</code></li>
+</ul>
+<p>又由上面的构造条件可得：</p>
+<ul>
+<li><code>*Q=Q-8</code></li>
+<li><code>*Q=Q-12</code></li>
+</ul>
+<p>至此，Q处的值被改为Q-12。</p>
+<p><strong>PS：以上都是以32位系统为前提，若为64位系统，则偏移相应要修改，如+12变为+0x18，+8变为+0x10。</strong></p>
+<p>对应题目：<a href="https://github.com/CP32/ctf-pwn/tree/master/2014%20HITCON%20stkof">2014HITCON stkof</a></p>
+<p>参考资料：</p>
+<p><a href="https://ctf-wiki.github.io/ctf-wiki/pwn/linux/glibc-heap/unlink/">CTF-Wiki Unlink</a></p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../pragyan-ctf2019-pwn部分wp/" title="pragyan ctf2019 pwn部分wp" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                pragyan ctf2019 pwn部分wp
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../西湖论剑pwn部分writeup/" title="西湖论剑pwn部分writeup" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                西湖论剑pwn部分writeup
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application.ac79c3b0.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:".."}})</script>
+      
+    
+  </body>
+</html>
