@@ -1,0 +1,974 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.3">
+    
+    
+      
+        <title>Pwn学习 - ginben</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.30686662.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.a8b3c06d.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#fb8c00">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.74668098.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="orange" data-md-color-accent="">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#canary" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../.." title="ginben" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              ginben
+            </span>
+            <span class="md-header-nav__topic">
+              
+                Pwn学习
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main" role="main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../.." title="ginben" class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </a>
+    ginben
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="主页" class="md-nav__link">
+      主页
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../友情链接/" title="友情链接" class="md-nav__link">
+      友情链接
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      CTF WP
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        CTF WP
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../CTF WP/Aurora内部赛pwn-writeup/" title="Aurora内部赛pwn writeup" class="md-nav__link">
+      Aurora内部赛pwn writeup
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../CTF WP/pragyan-ctf2019-pwn部分wp/" title="pragyan ctf2019 pwn部分wp" class="md-nav__link">
+      pragyan ctf2019 pwn部分wp
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../CTF WP/西湖论剑pwn部分writeup/" title="西湖论剑pwn部分writeup" class="md-nav__link">
+      西湖论剑pwn部分writeup
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../CTF WP/通过DDCTF两道逆向题练习脱壳/" title="通过DDCTF两道逆向题练习脱壳" class="md-nav__link">
+      通过DDCTF两道逆向题练习脱壳
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+    
+    <label class="md-nav__link" for="nav-4">
+      Pwn学习笔记
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Pwn学习笔记
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Pwn学习
+      </label>
+    
+    <a href="./" title="Pwn学习" class="md-nav__link md-nav__link--active">
+      Pwn学习
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#canary_1" class="md-nav__link">
+    canary绕过：
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#__stack_chk_failed" class="md-nav__link">
+    劫持：__stack_chk_failed函数：
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#canaryssp-leak" class="md-nav__link">
+    故意触发canary（SSP leak）：
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../浅谈glibc-unlink/" title="浅谈glibc-unlink" class="md-nav__link">
+      浅谈glibc-unlink
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      加密与解密学习笔记
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        加密与解密学习笔记
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../加密与解密学习笔记/前言/" title="前言" class="md-nav__link">
+      前言
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../加密与解密学习笔记/第1章 基础知识/" title="第1章 基础知识" class="md-nav__link">
+      第1章 基础知识
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../加密与解密学习笔记/第2章 动态分析技术/" title="第2章 动态分析技术" class="md-nav__link">
+      第2章 动态分析技术
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#canary_1" class="md-nav__link">
+    canary绕过：
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#__stack_chk_failed" class="md-nav__link">
+    劫持：__stack_chk_failed函数：
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#canaryssp-leak" class="md-nav__link">
+    故意触发canary（SSP leak）：
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <p>记录了学习pwn以来的一些容易忘的笔记</p>
+<h1 id="canary"><strong>canary</strong><a class="headerlink" href="#canary" title="Permanent link">&para;</a></h1>
+<h3 id="canary_1"><strong>canary绕过：</strong><a class="headerlink" href="#canary_1" title="Permanent link">&para;</a></h3>
+<p>泄露canary: canary以\x00结尾，需要覆盖掉\x00，泄露出canary，然后再执行溢出控制运行过程。</p>
+<h3 id="__stack_chk_failed"><strong>劫持：__stack_chk_failed函数：</strong><a class="headerlink" href="#__stack_chk_failed" title="Permanent link">&para;</a></h3>
+<p>已知 Canary 失败的处理逻辑会进入到 __stack_chk_failed 函数，修改GOT表。</p>
+<h3 id="canaryssp-leak"><strong>故意触发canary（SSP leak）：</strong><a class="headerlink" href="#canaryssp-leak" title="Permanent link">&para;</a></h3>
+<p>__stack_chk_failed函数中会输出argv[0]，可构造足够长的字符串覆盖掉argv[0]为我们想要的地址。（详见附录）</p>
+<p>附录：</p>
+<p><a href="https://veritas501.space/2017/04/28/%E8%AE%BAcanary%E7%9A%84%E5%87%A0%E7%A7%8D%E7%8E%A9%E6%B3%95/">https://veritas501.space/2017/04/28/%E8%AE%BAcanary%E7%9A%84%E5%87%A0%E7%A7%8D%E7%8E%A9%E6%B3%95/</a></p>
+<h1 id="_1"><strong>格式化字符串</strong><a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h3 id="_2"><strong>基本知识：</strong><a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<p>n$:获取格式化字符串中的指定参数</p>
+<p>hh:一个字节    h:双字节</p>
+<p>%p:十六进制地址格式打印变量的值</p>
+<p>%n:不输出，把已成功输出的字符个数写入对应参数所指的变量</p>
+<p>%%:输出一个%</p>
+<h3 id="_3"><strong>泄露任意地址内存：</strong><a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<p>用:[tag]%p%p%p%p%p%p... 来测试需要输入的格式化字符串（恶意）是输出函数的第几个参数。</p>
+<h3 id="_4"><strong>覆盖内存：</strong><a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>...[overwrite addr]....%[overwrite offset]$n</p>
+<p>找到地址，然后确定该地址是第几个参数。</p>
+<p>覆盖小数字：前面放padding，要覆盖的地址放在后面。</p>
+<p>覆盖大数字：使用%hhn截断，按每个字节写入</p>
+<h3 id="hijack-got"><strong>Hijack GOT:</strong><a class="headerlink" href="#hijack-got" title="Permanent link">&para;</a></h3>
+<p>确定函数A的GOT表地址，确定函数B的内存地址，将函数B的内存地址写入到函数A的GOT表地址处。</p>
+<p>Pwntools的fmtstr_payload函数，例如：fmtstr_payload(7, {puts_got: system_addr}) 的意思就是，我的格式化字符串的偏移是 7，我希望在 puts_got 地址处写入 system_addr 这个数据。</p>
+<h3 id="hijack-retaddr"><strong>Hijack Retaddr：</strong><a class="headerlink" href="#hijack-retaddr" title="Permanent link">&para;</a></h3>
+<p>直接修改为想要跳转的地址。</p>
+<h1 id="_5"><strong>栈溢出</strong><a class="headerlink" href="#_5" title="Permanent link">&para;</a></h1>
+<h3 id="_6"><strong>基本知识：</strong><a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>1、局部变量和全局变量都是先定义的在低地址，后定义的在高地址。</p>
+<p>2、ELF编译时加了PIE选项后为so文件</p>
+<p>3、plt表存got表项地址，got表存的是真正的函数地址（在未调用过一次函数前，got表存的是plt表下一条指令地址，调用过一次之后才是真正函数地址）。plt表在代码段，got表在数据段，plt表可以跳到got表地址。</p>
+<p>4、readelf -r ./filename查看got表</p>
+<p>5、改表内容一般GOT表，改返回地址改为PLT表地址或者GOT表地址都可以。</p>
+<p>6、libc中找”/bin/sh”：libc.search(‘/bin/sh’).next()</p>
+<p>7、enter和leave一组，call和ret一组。</p>
+<p>call: push rip; jmp target;</p>
+<p>ret: pop rip</p>
+<p>enter: push rbp; mov rbp,rsp</p>
+<p>leave: mov rsp,rbp; pop rbp</p>
+<p>8、gets函数遇到回车才结束，回车被自动转换成’\0’存到字符串。read函数无0截断。</p>
+<p>9、gdb默认关闭ASLR，要开启需要：set disable-randomization off</p>
+<h3 id="ret2text"><strong>ret2text:</strong><a class="headerlink" href="#ret2text" title="Permanent link">&para;</a></h3>
+<p>直接溢出改返回地址</p>
+<h3 id="ret2shellcode"><strong>ret2shellcode:</strong><a class="headerlink" href="#ret2shellcode" title="Permanent link">&para;</a></h3>
+<p>vmmap查看段执行权限，例如bss段。把shellcode放到bss段中，改返回地址跳转到shellcode。</p>
+<p>shellcode = asm(shellcraft.sh())</p>
+<p>注意64位要修改：context.bits=64 ; context.arch='amd64'</p>
+<h3 id="ret2syscall"><strong>ret2syscall:</strong><a class="headerlink" href="#ret2syscall" title="Permanent link">&para;</a></h3>
+<p>利用如下系统调用来获取shell。</p>
+<p>execve("/bin/sh",NULL,NULL)</p>
+<p>32位系统：eax为系统调用号0xb，ebx指向/bin/sh地址，ecx、edx为0。</p>
+<p>用ROPgadget找gadget：</p>
+<p>ROPgadget --binary filename --only ‘pop|ret’ |grep ‘ebx’</p>
+<p>找/bin/sh地址：</p>
+<p>ROPgadget --binary filename --string ‘/bin/sh’</p>
+<p>找int 0x80:</p>
+<p>ROPgadget --binary filename --only ‘int’</p>
+<p>以上为32位，64位的不同之处除了使用的寄存器之外，64位并不使用int 0x80，而是使用syscall，两者机器码并不相同。</p>
+<p>32位execve调用号是0xb，64位是0x3b，两者都是存在eax(rax)寄存器中</p>
+<h3 id="ret2libc"><strong>ret2libc:</strong><a class="headerlink" href="#ret2libc" title="Permanent link">&para;</a></h3>
+<ul>
+<li>泄露 __libc_start_main 地址</li>
+<li>获取 libc 版本</li>
+<li>获取 system 地址与 /bin/sh 的地址</li>
+<li>再次执行源程序</li>
+<li>触发栈溢出执行 system(‘/bin/sh’)</li>
+</ul>
+<p>Ret2libc3要注意开始时把esp进行了and操作，最低4位清0</p>
+<h3 id="ret2csu"><strong>ret2csu:</strong><a class="headerlink" href="#ret2csu" title="Permanent link">&para;</a></h3>
+<p>利用__libc_csu_init函数中的gadgets，可以控制rbx,rbp,r12,r13,r14,r15的数据，其中可以通过r13,r14,r15控制rdx,rsi,edi的数据，通过rbx和r12的配合控制跳转到想要的函数。注意是call  qword ptr [r12+rbx*8]，会先取地址内容再跳转，所以不能填plt表而应该是got表。</p>
+<p>控制rbx+1=rbp，则不会跳转，进行顺序执行。但是要注意会一直执行到retn，所以要构造padding长度为0x38用来pop。</p>
+<p>libc_csu_init的尾部可以通过偏移，还能控制rbp和rsi寄存器。</p>
+<h3 id="ret2dl_resolve"><strong>ret2dl_resolve:</strong><a class="headerlink" href="#ret2dl_resolve" title="Permanent link">&para;</a></h3>
+<p>参考：<a href="http://pwn4.fun/2016/11/09/Return-to-dl-resolve/；">http://pwn4.fun/2016/11/09/Return-to-dl-resolve/；</a></p>
+<p><a href="http://rk700.github.io/2015/08/09/return-to-dl-resolve/">http://rk700.github.io/2015/08/09/return-to-dl-resolve/</a>（这个没看，有空看看）</p>
+<p>Stage1：普通ROP</p>
+<p>Stage2：控制返回地址为plt[0]，然后执行push GOT<a href="linkmap">1</a>，jmp GOT[2]，调用_dl_runtime_resolve(linkmap,reloc_arg)，相当于人为跳过了PLT表项开始时那部分操作（就是调用函数到PLT时有三部分操作嘛，JMP、PUSH、JMP，然后这个的做法就是跳过了第一个JMP，手动PUSH偏移，然后第三个JMP就是跳到PLT[0]）</p>
+<p>Stage3：实际上Stage2中push的偏移，就是目标函数在.rel.plt节中的偏移。这个stage中，伪造了write在.rel.plt节中对应的表项。这个表项有两个值，第一个值对应的是函数的GOT表地址，第二个值r-&gt;info（不是很懂，但是它右移8位得到的叫索引，这个索引对应的是.dynsym中函数所在的索引，例如write的值是0x607，右移8位得到索引就是0x6，刚好对应它在.dynsym中索引是6。而它的7代表着它是R_386_JUMP_SLOT这个type）</p>
+<p>Stage4：这个stage中，伪造了函数在.dynsym表中的项。在stage3中伪造了2个值，其中可以通过第二个值找到函数在.dynsym中的索引，再通过这个索引对应的表项A，可以找到函数在.dynstr表中的项B。表项A长度为0x10，低地址的4字节（st_name）存的是B和.dynstr表头的偏移。</p>
+<p>Stage5：这个stage和stage4基本差不多，这个stage是在stage4的基础上伪造了.dynstr表项。借此改变st_name，引导到自己写的函数名中，本例是”write\x00”</p>
+<p>Stage6：和stage5同理，实战。把字符串改为”system\x00”，即可解析成system函数。</p>
+<p><strong>附录：</strong></p>
+<p>roputils工具：<a href="https://github.com/inaz2/roputils">https://github.com/inaz2/roputils</a></p>
+<h1 id="_7"><strong>堆</strong><a class="headerlink" href="#_7" title="Permanent link">&para;</a></h1>
+<h3 id="_8"><strong>基本知识：</strong><a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>当调用free函数的时候<code>__free_hook</code>不为NULL会优先调用<code>__free_hook</code>函数劫持free函数。当GOT表不能修改时，可考虑修改<code>__free_hook</code>指向的内容为想要的函数(如system)，要被释放的堆地址为参数，达到free(addr)=system(addr)的效果。修改<code>__malloc_hook</code>后，可考虑通过连续释放同一堆块（double free）进行触发，程序会报错，但会调用backtrace_and_map函数之后调用malloc函数。</p>
+</li>
+<li>
+<p>堆基础学习资料：<a href="https://www.cnblogs.com/alisecurity/p/5486458.html，https:/www.cnblogs.com/alisecurity/p/5520847.html">https://www.cnblogs.com/alisecurity/p/5486458.html，https://www.cnblogs.com/alisecurity/p/5520847.html</a></p>
+</li>
+<li>
+<p>chunk加入unsorted bin的情况：</p>
+</li>
+</ol>
+<p>①释放small chunk时，如果能进行合并，就将能合并的从small bin中移除，将新的chunk加入到unsorted bin中。（large bin同理）</p>
+<p>②如果large bin最大chunk size大于用户请求的size，则拆分为两块，前者给用户，后者加入到unsorted bin。</p>
+<ol>
+<li>
+<p>fast bin：LIFO ； small bin： FIFO    fast bin使用单链表，其他循环双链表</p>
+</li>
+<li>
+<p>mmap得到的地址是跟libc有关的，可以在关闭ASLR的时候求偏移。然后再利用这个偏移，可以在开启ASLR的时候求得libc基址。</p>
+</li>
+<li>
+<p>向后合并：把相邻的低地址的chunk合并 </p>
+</li>
+<li>
+<p>32位系统中，用户的请求在16bytes到64bytes会被分配到fastbin中；64位系统中，用户的请求在32bytes到128bytes会被分配到fastbin中</p>
+</li>
+<li>
+<p>伪造fake chunk时，要注意伪造next chunk的prev_size，否则会报错。（House of einherjar里面有详细提到）</p>
+</li>
+<li>
+<p>当申请的堆块大于当前的top chunk size且小于用mmap分配的阈值时，系统会将原来的top chunk 放到**unsorted bin**中，同时分配新的较大的top chunk出来。</p>
+</li>
+<li>
+<h1 id="define-malloc_alignment-2-size_sz">define MALLOC_ALIGNMENT       (2 * SIZE_SZ)<a class="headerlink" href="#define-malloc_alignment-2-size_sz" title="Permanent link">&para;</a></h1>
+<h1 id="define-malloc_align_mask-malloc_alignment-1">define MALLOC_ALIGN_MASK (MALLOC_ALIGNMENT - 1)<a class="headerlink" href="#define-malloc_align_mask-malloc_alignment-1" title="Permanent link">&para;</a></h1>
+</li>
+<li>
+<p><img alt="1570087991353" src="C:\Users\obliviate\AppData\Roaming\Typora\typora-user-images\1570087991353.png" /></p>
+</li>
+<li>
+<p>tcache_entry中，next域直接指向user data，而不是像fastbin那样指向chunk开头</p>
+</li>
+<li>
+<p>calloc不会分配tcache中的堆</p>
+</li>
+</ol>
+<h3 id="unlink"><strong>Unlink:</strong><a class="headerlink" href="#unlink" title="Permanent link">&para;</a></h3>
+<p>在博客上写</p>
+<h3 id="uaf"><strong>UAF：</strong><a class="headerlink" href="#uaf" title="Permanent link">&para;</a></h3>
+<p>堆被释放，但指针未被置null</p>
+<h3 id="fastbin-double-free"><strong>Fastbin double free:</strong><a class="headerlink" href="#fastbin-double-free" title="Permanent link">&para;</a></h3>
+<p>通过构造出A-&gt;B-&gt;A的fastbin，申请A，从而可以修改A的fd域，第二次再申请A的时候就可以修改想要的地址。要注意对size的检查，需要符合当前bin的size</p>
+<h3 id="house-of-spirit"><strong>House of spirit:</strong><a class="headerlink" href="#house-of-spirit" title="Permanent link">&para;</a></h3>
+<p>伪造块，free掉再申请，从而实现分配到的堆块是我们伪造的堆块。需要注意size符合要求，块地址对齐， ISMMAP 不能为1</p>
+<h3 id="chunk-overlap">Chunk overlap:<a class="headerlink" href="#chunk-overlap" title="Permanent link">&para;</a></h3>
+<ol>
+<li>free掉一个unsorted chunk A，这样它下一个chunk B（物理高地址相邻）的prev_size就是这个A的size</li>
+<li>把A的size改小，然后分配至少两次（假设分配两次，把原来的A拆分得到C和D），由于改小了，因此分配时并不会影响到B的prev_size和size的prev_in_use位，当然这里要注意构造下fake chunk防止分配C时被check</li>
+<li>free C，free B（在free B的时候，因为prev_size没有改过，还是A的size，因此相当于把A和B合并起来了，得到E）</li>
+<li>E进入unsorted bin，但显然D也在E中，就有UAF，之后就常规利用了</li>
+</ol>
+<h3 id="unsorted-bin-attack"><strong>Unsorted bin attack:</strong><a class="headerlink" href="#unsorted-bin-attack" title="Permanent link">&para;</a></h3>
+<p>不满足fastsize的chunk被free后进入unsorted bin，当从unsorted bin中取出一个chunk p时，会把p-&gt;bk-&gt;fd置为一个很大的数（main_arena中的一个地址），因此如果能改bk就能把某个地址的值设为很大，一般可以改global_max_fast</p>
+<h3 id="small-bin-attackhouse-of-lore">Small bin attack(House of Lore):<a class="headerlink" href="#small-bin-attackhouse-of-lore" title="Permanent link">&para;</a></h3>
+<p>利用条件：①可以控制在small bin中的chunk的bk指针 ②可以控制指定位置的fd、bk指针</p>
+<p>Small bin的check检查了victim-&gt;bk-&gt;fd==victim，victim为待unlink的堆，把bk改为想要的位置fake chunk，同时那个位置的fd指针改为victim，即可绕过第一次check，分配到victim。然后fake chunk的bk要指向一个可控制的地方，让该处的fd为fake chunk，即可绕过第二次check，分配到fake chunk。</p>
+<div class="codehilite"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">in_smallbin_range</span><span class="p">(</span><span class="n">nb</span><span class="p">))</span> <span class="p">{</span>
+        <span class="c1">// 获取 small bin 的索引</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="n">smallbin_index</span><span class="p">(</span><span class="n">nb</span><span class="p">);</span>
+        <span class="c1">// 获取对应 small bin 中的 chunk 指针</span>
+        <span class="n">bin</span> <span class="o">=</span> <span class="n">bin_at</span><span class="p">(</span><span class="n">av</span><span class="p">,</span> <span class="n">idx</span><span class="p">);</span>
+        <span class="c1">// 先执行 victim= last(bin)，获取 small bin 的最后一个 chunk</span>
+        <span class="c1">// 如果 victim = bin ，那说明该 bin 为空。</span>
+        <span class="c1">// 如果不相等，那么会有两种情况</span>
+        <span class="k">if</span> <span class="p">((</span><span class="n">victim</span> <span class="o">=</span> <span class="n">last</span><span class="p">(</span><span class="n">bin</span><span class="p">))</span> <span class="o">!=</span> <span class="n">bin</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// 第一种情况，small bin 还没有初始化。</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">victim</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="cm">/* initialization check */</span>
+                <span class="c1">// 执行初始化，将 fast bins 中的 chunk 进行合并</span>
+                <span class="n">malloc_consolidate</span><span class="p">(</span><span class="n">av</span><span class="p">);</span>
+            <span class="c1">// 第二种情况，small bin 中存在空闲的 chunk</span>
+            <span class="k">else</span> <span class="p">{</span>
+                <span class="c1">// 获取 small bin 中倒数第二个 chunk 。</span>
+                <span class="n">bck</span> <span class="o">=</span> <span class="n">victim</span><span class="o">-&gt;</span><span class="n">bk</span><span class="p">;</span>
+                <span class="c1">// 检查 bck-&gt;fd 是不是 victim，防止伪造</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">__glibc_unlikely</span><span class="p">(</span><span class="n">bck</span><span class="o">-&gt;</span><span class="n">fd</span> <span class="o">!=</span> <span class="n">victim</span><span class="p">))</span> <span class="p">{</span>
+                    <span class="n">errstr</span> <span class="o">=</span> <span class="s">&quot;malloc(): smallbin double linked list corrupted&quot;</span><span class="p">;</span>
+                    <span class="k">goto</span> <span class="n">errout</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="c1">// 设置 victim 对应的 inuse 位</span>
+                <span class="n">set_inuse_bit_at_offset</span><span class="p">(</span><span class="n">victim</span><span class="p">,</span> <span class="n">nb</span><span class="p">);</span>
+                <span class="c1">// 修改 small bin 链表，将 small bin 的最后一个 chunk 取出来</span>
+                <span class="n">bin</span><span class="o">-&gt;</span><span class="n">bk</span> <span class="o">=</span> <span class="n">bck</span><span class="p">;</span>
+                <span class="n">bck</span><span class="o">-&gt;</span><span class="n">fd</span> <span class="o">=</span> <span class="n">bin</span><span class="p">;</span>
+                <span class="c1">// 如果不是 main_arena，设置对应的标志</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">av</span> <span class="o">!=</span> <span class="o">&amp;</span><span class="n">main_arena</span><span class="p">)</span> <span class="n">set_non_main_arena</span><span class="p">(</span><span class="n">victim</span><span class="p">);</span>
+                <span class="c1">// 细致的检查</span>
+                <span class="n">check_malloced_chunk</span><span class="p">(</span><span class="n">av</span><span class="p">,</span> <span class="n">victim</span><span class="p">,</span> <span class="n">nb</span><span class="p">);</span>
+                <span class="c1">// 将申请到的 chunk 转化为对应的 mem 状态</span>
+                <span class="kt">void</span> <span class="o">*</span><span class="n">p</span> <span class="o">=</span> <span class="n">chunk2mem</span><span class="p">(</span><span class="n">victim</span><span class="p">);</span>
+                <span class="c1">// 如果设置了 perturb_type , 则将获取到的chunk初始化为 perturb_type ^ 0xff</span>
+                <span class="n">alloc_perturb</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">bytes</span><span class="p">);</span>
+                <span class="k">return</span> <span class="n">p</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</pre></div>
+
+<h3 id="large-bin-attack"><strong>Large bin attack:</strong>（还不太懂）<a class="headerlink" href="#large-bin-attack" title="Permanent link">&para;</a></h3>
+<p>参考：</p>
+<p><a href="https://veritas501.space/2018/04/11/Largebin %E5%AD%A6%E4%B9%A0/">https://veritas501.space/2018/04/11/Largebin%20%E5%AD%A6%E4%B9%A0/</a></p>
+<p>控制一个unsorted chunk和一个large chunk，unsorted chunk控制bk，large chunk控制bk和bk_nextsize。（下面说的是unsorted chunk&gt;large chunk）</p>
+<p>先把unsorted chunk的bk改为想控制的地址附近，要让size域符合你想控制的大小（也是接下来你申请的大小），而这个unsorted chunk不能完美符合你接下来申请的大小，使得unsorted chunk回到对应large bin。</p>
+<p>接着因为这个unsorted chunk要回到large bin，就要发生从unsorted bin中unlink，此时因为下图会把控制的地方的fd域改为一个libc地址。</p>
+<p><img alt="img" src="file:///C:\Users\HP\AppData\Local\Temp\ksohtml13640\wps6.jpg" /> </p>
+<p>然后把这个unsorted chunk加入到large bin中，会触发下图插入到large bin的代码。会把控制的地方的bk_nextsize改为堆地址。</p>
+<p><img alt="img" src="file:///C:\Users\HP\AppData\Local\Temp\ksohtml13640\wps7.jpg" /> </p>
+<p>之后还有一些代码，如下图，又是任意地址写堆地址。这里的bck-&gt;fd要让它改到size域，单字节，使得它满足你想要的大小。</p>
+<p><img alt="img" src="file:///C:\Users\HP\AppData\Local\Temp\ksohtml13640\wps8.jpg" /> </p>
+<p>最后分配得到的就是你在unsorted chunk的bk域里伪造的那个堆。</p>
+<h3 id="house-of-force"><strong>House of force:</strong><a class="headerlink" href="#house-of-force" title="Permanent link">&para;</a></h3>
+<p>利用条件：①可以控制top chunk的size域  ②可以申请任意大小的堆</p>
+<p>设fake chunk地址为A，当前top chunk地址为B。这时偏移为A-B。接下来要计算申请的堆大小req。根据glibc代码，需要满足：req+SIZE_SZ+MALLOC_ALIGN_MASK=偏移=A-B。</p>
+<p>这时req=A-B-SIZE_SZ-MALLOC_ALIGN_MASK，然后malloc(req)。这时top chunk就指向了你想要的地址A。再申请就会返回地址为A的chunk。</p>
+<h3 id="house-of-einherjar">House of Einherjar:<a class="headerlink" href="#house-of-einherjar" title="Permanent link">&para;</a></h3>
+<p>利用条件：①可以控制1个非fast chunk A的prev size域 ②可以让A的prev_in_use域为0</p>
+<p>原理是利用**unlink**。把A的prev_in_use域置0，在free A的时候会触发后向合并，把A和A-prev size的fake chunk合并。其中的check和unlink时的check一样：</p>
+<div class="codehilite"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">__builtin_expect</span> <span class="p">(</span><span class="n">FD</span><span class="o">-&gt;</span><span class="n">bk</span> <span class="o">!=</span> <span class="n">P</span> <span class="o">||</span> <span class="n">BK</span><span class="o">-&gt;</span><span class="n">fd</span> <span class="o">!=</span> <span class="n">P</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>                      
+  <span class="n">malloc_printerr</span> <span class="p">(</span><span class="n">check_action</span><span class="p">,</span> <span class="s">&quot;corrupted double-linked list&quot;</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">AV</span><span class="p">);</span>  
+</pre></div>
+
+<p>需要把fake chunk的fd和bk改为满足以上条件。</p>
+<p>PS：unlink中对size和prev_size有如下验证：</p>
+<div class="codehilite"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">__builtin_expect</span> <span class="p">(</span><span class="n">chunksize</span><span class="p">(</span><span class="n">P</span><span class="p">)</span> <span class="o">!=</span> <span class="n">prev_size</span> <span class="p">(</span><span class="n">next_chunk</span><span class="p">(</span><span class="n">P</span><span class="p">)),</span> <span class="mi">0</span><span class="p">))</span>      
+      <span class="n">malloc_printerr</span> <span class="p">(</span><span class="s">&quot;corrupted size vs. prev_size&quot;</span><span class="p">);</span>
+</pre></div>
+
+<p>所以只需P+size，就是glibc认为的下一个chunk的prev_size域，等于P的size域即可。</p>
+<h3 id="house-of-orange">House of Orange:<a class="headerlink" href="#house-of-orange" title="Permanent link">&para;</a></h3>
+<p>利用条件：当程序中没有free函数时使用（需要能改top chunk size？感觉不一定，但资料这么写）</p>
+<p>当top chunk不能满足当前分配的需求时，会用brk拓展堆，之前的top chunk就会被放入unsorted bin中</p>
+<p>注意事项：①伪造的top chunk size必须要对齐到内存页（即后3位） ②size要大于MINSIZE  ③size要小于之后申请的chunk size+MINSIZE  ④size的prev_in_use位为1</p>
+<h3 id="house-of-roman">House of Roman:<a class="headerlink" href="#house-of-roman" title="Permanent link">&para;</a></h3>
+<p>利用条件：①无法leak ②存在UAF漏洞  ③可以生成fast chunk和unsorted chunk</p>
+<p>先通过fast bin attack，使得fast chunk的fd域存有main_arena相关的地址，通过改低字节，申请到<code>__malloc_hook-0x23</code>作为fake chunk。然后通过unsorted bin attack，使得unsorted chunk的bk域存有main_arena相关地址，通过改低字节，把<code>__malloc_hook</code>的值改为一个和main_arena相关的地址。最后利用前面fast bin attack得到的fake chunk，改低字节，把main_arena相关改成one_gadget。最后double free触发one_gadget，选取rsp+0x50那个成功率较高。</p>
+<h3 id="tcache-attack">Tcache Attack:<a class="headerlink" href="#tcache-attack" title="Permanent link">&para;</a></h3>
+<h5 id="tcache-poisoning">tcache poisoning:<a class="headerlink" href="#tcache-poisoning" title="Permanent link">&para;</a></h5>
+<p>和fast bin attack类似，改fd，但没有了size的限制</p>
+<h5 id="tcache-dup">tcache dup:<a class="headerlink" href="#tcache-dup" title="Permanent link">&para;</a></h5>
+<p>2.27：double free，但没有任何检查，可以直接double free</p>
+<p>2.29：对double free加入检查，如果发现在当前tcache中已有待free的堆，则报错；但如果同一个堆在两个tcache中存在不会报错</p>
+<h1 id="io_file">IO_FILE利用<a class="headerlink" href="#io_file" title="Permanent link">&para;</a></h1>
+<h3 id="_9">基础知识：<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>程序对每个文件流生成一个FILE结构。对所有FILE结构用链表连接，链表头用_IO_list_all表示。标准IO库，程序启动时自动打开stdin、stdout、stderr三个文件流，这三个流位于libc.so的数据段。而用fopen创建的文件流分配在堆内存上。</p>
+</li>
+<li>
+<p><code>c
+   struct _IO_FILE_plus
+   {
+       _IO_FILE    file;
+       IO_jump_t   *vtable;
+   }</code></p>
+</li>
+</ol>
+<p>32位下vtable偏移为0x94，64位偏移位0xd8</p>
+<ol>
+<li>
+<p>```c
+   void * funcs[] = {
+      1 NULL, // "extra word"
+      2 NULL, // DUMMY
+      3 exit, // finish
+      4 NULL, // overflow
+      5 NULL, // underflow
+      6 NULL, // uflow
+      7 NULL, // pbackfail</p>
+<p>8 NULL, // xsputn  #printf
+  9 NULL, // xsgetn
+  10 NULL, // seekoff
+  11 NULL, // seekpos
+  12 NULL, // setbuf
+  13 NULL, // sync
+  14 NULL, // doallocate
+  15 NULL, // read
+  16 NULL, // write
+  17 NULL, // seek
+  18 pwn,  // close
+  19 NULL, // stat
+  20 NULL, // showmanyc
+  21 NULL, // imbue
+   };
+   ```</p>
+</li>
+<li>
+<p>fread调用：IO_file_xsgetn</p>
+</li>
+</ol>
+<p>fwrite调用：IO_file_xsputn，IO_file_overflow，_IO_file_write</p>
+<p>fopen调用</p>
+<p>fclose调用：IO_file_finish</p>
+<p>printf/puts调用：IO_file_xsputn，IO_file_overflow，_IO_file_write</p>
+<ol>
+<li>
+<p>vtable 中的函数调用时会把对应的_IO_FILE_plus 指针作为第一个参数传递.</p>
+</li>
+<li>
+<p>程序调用 <code>exit</code> 后，会遍历 <code>_IO_list_all</code> ，调用 <code>_IO_2_1_stdout_</code> 下的 <code>vatable</code> 中 <code>_setbuf</code> 函数。</p>
+</li>
+<li>
+<p>当 glibc 检测到内存错误时，会依次调用这样的函数路径：malloc_printerr -&gt;</p>
+</li>
+</ol>
+<p>libc_message-&gt;__GI_abort -&gt; _IO_flush_all_lockp -&gt; _IO_OVERFLOW</p>
+<h3 id="io_file_to_leak">IO_FILE_to_leak<a class="headerlink" href="#io_file_to_leak" title="Permanent link">&para;</a></h3>
+<p>改<code>_IO_2_1_stdout_</code>的flag为0xfbad1800，然后后面加p64(0)*3+'\x00'，改小<code>_IO_write_base</code>，从而可以多输出一点信息，其中包括libc地址，可以找到<code>_IO_file_jumps</code></p>
+<h1 id="pwn">内核Pwn<a class="headerlink" href="#pwn" title="Permanent link">&para;</a></h1>
+<h3 id="_10">环境配置<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<p>环境配置参考：</p>
+<p><a href="http://blog.eonew.cn/archives/1162">http://blog.eonew.cn/archives/1162</a> </p>
+<p><a href="https://23r3f.github.io/2019/05/15/kernel pwn初探/">https://23r3f.github.io/2019/05/15/kernel%20pwn%E5%88%9D%E6%8E%A2/</a> </p>
+<p>内核编译：</p>
+<div class="codehilite"><pre><span></span>make bzImage
+</pre></div>
+
+<p>busybox编译：</p>
+<div class="codehilite"><pre><span></span> make install
+</pre></div>
+
+<p>得到_install文件夹，手动添加一些系统文件夹和init初始化脚本</p>
+<p>如果需要加可执行文件（ELF），也是放在_install目录下</p>
+<p>打包：</p>
+<div class="codehilite"><pre><span></span>find . | cpio -o --format=newc &gt; ./rootfs.img 
+</pre></div>
+
+<p>qemu启动：</p>
+<p>把编译好的内核bzImage和busybox打包好的文件系统放到同一文件夹下，之后执行shell命令（为方便直接放到.sh文件中）</p>
+<p>sh：</p>
+<div class="codehilite"><pre><span></span>#!/bin/sh
+qemu-system-x86_64 \
+-m 64M \
+-kernel ./bzImage \
+-initrd  ./rootfs.img \
+-append &quot;root=/dev/ram rw oops=panic panic=1 kalsr&quot; \
+-netdev user,id=t0, -device e1000,netdev=t0,id=nic0 \
+-monitor /dev/null \
+-smp cores=2,threads=1 \
+-cpu kvm64,+smep \
+#-S 启动gdb调试
+#-gdb tcp:1234 等待gdb调试
+</pre></div>
+
+<h3 id="_11">命令<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<p>dmesg：开机信息（ /proc/sys/kernel/dmesg_restrict 为1则不能输出）</p>
+<p>/proc/kallsyms ：保存地址的文件，可以获取commit_creds和prepare_kernel_creds的地址（ /proc/sys/kernel/kptr_restrict 为1则不能输出）</p>
+<p>执行 commit_creds(prepare_kernel_cred(0)) 即可获得 root 权限 </p>
+<h1 id="gdbglibc"><strong>gdb调试glibc</strong><a class="headerlink" href="#gdbglibc" title="Permanent link">&para;</a></h1>
+<div class="codehilite"><pre><span></span>sudo apt-get install glibc-source 
+
+sudo apt-get install libc6-dbg 
+
+sudo tar -xf /usr/src/glibc/glibc-2.23.tar.xz
+</pre></div>
+
+<p>即可</p>
+<p>在gdb提示符下输入以下内容：</p>
+<div class="codehilite"><pre><span></span>pwndbg&gt; directory /usr/src/glibc/glibc-2.23/malloc/
+
+pwndbg&gt; b _int_malloc（要断的函数）
+</pre></div>
+
+<p>如果出现<code>Function "_int_malloc" not defined.</code>，别慌，把程序运行起来再断就好。</p>
+<h1 id="_12">实用小知识：<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h1>
+<ol>
+<li>libc中存储了main函数environ指针的地址，通过该指针可以找到main函数的返回地址存的地方A（在栈上），即通过environ泄漏栈地址：</li>
+</ol>
+<p>&amp;environ是受libc_base影响的地址。A=environ-0x1e*8</p>
+<ol>
+<li>关闭系统ASLR：echo 0 &gt; /proc/sys/kernel/randomize_va_space</li>
+</ol>
+<p>开启gdb PIE：set disable-randomization off</p>
+<p>ASLR取值解释：</p>
+<p>0：所有随机化关闭</p>
+<p>1：除堆以外，所有随机化开启（包括程序代码、栈、动态库地址）。堆地址虽然也随程序代码而动态变化，但是堆是紧跟在程序部分后面的，随程序代码基址变化。</p>
+<p>2：所有随机化开启，堆地址也随机，不能通过程序代码基址推出。</p>
+<ol>
+<li>出题，开启防护的方法：<a href="https://www.cnblogs.com/Spider-spiders/p/8798628.html">https://www.cnblogs.com/Spider-spiders/p/8798628.html</a></li>
+</ol>
+<p>移除.symtab 符号表 以及 .strtab 符号字符串表 </p>
+<ul>
+<li><code>strip --remove-section=.symtab file_in</code></li>
+<li>
+<p><code>strip --remove-section=.strtab file_in</code></p>
+</li>
+<li>
+<p>在main函数前会调用.init段代码和.init_array段的函数数组中每一个函数指针。同样的，main函数结束后也会调用.fini段代码和.fini._arrary段的函数数组中的每一个函数指针。</p>
+</li>
+<li>
+<p>给程序传参数，process(argv=[])</p>
+</li>
+<li>
+<p>patchelf使用方法：</p>
+</li>
+</ul>
+<p>改ld.so时，patchelf --set-interpreter ld.so elfname；</p>
+<p>改libc时，patchelf --set-rpath libc elfname</p>
+<ol>
+<li></li>
+</ol>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../../CTF WP/通过DDCTF两道逆向题练习脱壳/" title="通过DDCTF两道逆向题练习脱壳" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                通过DDCTF两道逆向题练习脱壳
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../浅谈glibc-unlink/" title="浅谈glibc-unlink" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                浅谈glibc-unlink
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../../assets/fonts/font-awesome.css">
+    
+      <a href="https://t.me/ginben" class="md-footer-social__link fa fa-telegram"></a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.ac79c3b0.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      
+        <script src="../../js/extra.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      
+    
+  </body>
+</html>
