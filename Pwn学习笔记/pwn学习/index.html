@@ -300,8 +300,6 @@
     
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
     
-      
-    
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
         Pwn学习
@@ -315,29 +313,349 @@
 <nav class="md-nav md-nav--secondary">
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">Table of contents</label>
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#canary" class="md-nav__link">
+    canary
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#canary_1" class="md-nav__link">
     canary绕过：
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#__stack_chk_failed" class="md-nav__link">
     劫持：__stack_chk_failed函数：
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#canaryssp-leak" class="md-nav__link">
     故意触发canary（SSP leak）：
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    格式化字符串
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    基本知识：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    泄露任意地址内存：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    覆盖内存：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hijack-got" class="md-nav__link">
+    Hijack GOT:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hijack-retaddr" class="md-nav__link">
+    Hijack Retaddr：
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    栈溢出
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    基本知识：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ret2text" class="md-nav__link">
+    ret2text:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ret2shellcode" class="md-nav__link">
+    ret2shellcode:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ret2syscall" class="md-nav__link">
+    ret2syscall:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ret2libc" class="md-nav__link">
+    ret2libc:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ret2csu" class="md-nav__link">
+    ret2csu:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ret2dl_resolve" class="md-nav__link">
+    ret2dl_resolve:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    堆
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    基本知识：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unlink" class="md-nav__link">
+    Unlink:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uaf" class="md-nav__link">
+    UAF：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fastbin-double-free" class="md-nav__link">
+    Fastbin double free:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#house-of-spirit" class="md-nav__link">
+    House of spirit:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chunk-overlap" class="md-nav__link">
+    Chunk overlap:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unsorted-bin-attack" class="md-nav__link">
+    Unsorted bin attack:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#small-bin-attackhouse-of-lore" class="md-nav__link">
+    Small bin attack(House of Lore):
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#large-bin-attack" class="md-nav__link">
+    Large bin attack:（还不太懂）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#house-of-force" class="md-nav__link">
+    House of force:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#house-of-einherjar" class="md-nav__link">
+    House of Einherjar:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#house-of-orange" class="md-nav__link">
+    House of Orange:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#house-of-roman" class="md-nav__link">
+    House of Roman:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tcache-attack" class="md-nav__link">
+    Tcache Attack:
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tcache-poisoning" class="md-nav__link">
+    tcache poisoning:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tcache-dup" class="md-nav__link">
+    tcache dup:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#io_file" class="md-nav__link">
+    IO_FILE利用
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    基础知识：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_file_to_leak" class="md-nav__link">
+    IO_FILE_to_leak
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pwn" class="md-nav__link">
+    内核Pwn
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    环境配置
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    命令
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gdbglibc" class="md-nav__link">
+    gdb调试glibc
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    实用小知识：
   </a>
   
 </li>
@@ -444,29 +762,349 @@
 <nav class="md-nav md-nav--secondary">
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">Table of contents</label>
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#canary" class="md-nav__link">
+    canary
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#canary_1" class="md-nav__link">
     canary绕过：
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#__stack_chk_failed" class="md-nav__link">
     劫持：__stack_chk_failed函数：
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#canaryssp-leak" class="md-nav__link">
     故意触发canary（SSP leak）：
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    格式化字符串
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    基本知识：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    泄露任意地址内存：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    覆盖内存：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hijack-got" class="md-nav__link">
+    Hijack GOT:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hijack-retaddr" class="md-nav__link">
+    Hijack Retaddr：
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    栈溢出
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    基本知识：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ret2text" class="md-nav__link">
+    ret2text:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ret2shellcode" class="md-nav__link">
+    ret2shellcode:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ret2syscall" class="md-nav__link">
+    ret2syscall:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ret2libc" class="md-nav__link">
+    ret2libc:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ret2csu" class="md-nav__link">
+    ret2csu:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ret2dl_resolve" class="md-nav__link">
+    ret2dl_resolve:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    堆
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    基本知识：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unlink" class="md-nav__link">
+    Unlink:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uaf" class="md-nav__link">
+    UAF：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fastbin-double-free" class="md-nav__link">
+    Fastbin double free:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#house-of-spirit" class="md-nav__link">
+    House of spirit:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chunk-overlap" class="md-nav__link">
+    Chunk overlap:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#unsorted-bin-attack" class="md-nav__link">
+    Unsorted bin attack:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#small-bin-attackhouse-of-lore" class="md-nav__link">
+    Small bin attack(House of Lore):
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#large-bin-attack" class="md-nav__link">
+    Large bin attack:（还不太懂）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#house-of-force" class="md-nav__link">
+    House of force:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#house-of-einherjar" class="md-nav__link">
+    House of Einherjar:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#house-of-orange" class="md-nav__link">
+    House of Orange:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#house-of-roman" class="md-nav__link">
+    House of Roman:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tcache-attack" class="md-nav__link">
+    Tcache Attack:
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tcache-poisoning" class="md-nav__link">
+    tcache poisoning:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tcache-dup" class="md-nav__link">
+    tcache dup:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#io_file" class="md-nav__link">
+    IO_FILE利用
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    基础知识：
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#io_file_to_leak" class="md-nav__link">
+    IO_FILE_to_leak
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pwn" class="md-nav__link">
+    内核Pwn
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    环境配置
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    命令
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gdbglibc" class="md-nav__link">
+    gdb调试glibc
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    实用小知识：
   </a>
   
 </li>
@@ -488,37 +1126,40 @@
               
                 
                 
+                  <h1>Pwn学习</h1>
+                
                 <p>记录了学习pwn以来的一些容易忘的笔记</p>
-<h1 id="canary"><strong>canary</strong><a class="headerlink" href="#canary" title="Permanent link">&para;</a></h1>
-<h3 id="canary_1"><strong>canary绕过：</strong><a class="headerlink" href="#canary_1" title="Permanent link">&para;</a></h3>
+<h2 id="canary"><strong>canary</strong><a class="headerlink" href="#canary" title="Permanent link">&para;</a></h2>
+<h4 id="canary_1"><strong>canary绕过：</strong><a class="headerlink" href="#canary_1" title="Permanent link">&para;</a></h4>
 <p>泄露canary: canary以\x00结尾，需要覆盖掉\x00，泄露出canary，然后再执行溢出控制运行过程。</p>
-<h3 id="__stack_chk_failed"><strong>劫持：__stack_chk_failed函数：</strong><a class="headerlink" href="#__stack_chk_failed" title="Permanent link">&para;</a></h3>
+<h4 id="__stack_chk_failed"><strong>劫持：__stack_chk_failed函数：</strong><a class="headerlink" href="#__stack_chk_failed" title="Permanent link">&para;</a></h4>
 <p>已知 Canary 失败的处理逻辑会进入到 __stack_chk_failed 函数，修改GOT表。</p>
-<h3 id="canaryssp-leak"><strong>故意触发canary（SSP leak）：</strong><a class="headerlink" href="#canaryssp-leak" title="Permanent link">&para;</a></h3>
+<h4 id="canaryssp-leak"><strong>故意触发canary（SSP leak）：</strong><a class="headerlink" href="#canaryssp-leak" title="Permanent link">&para;</a></h4>
 <p>__stack_chk_failed函数中会输出argv[0]，可构造足够长的字符串覆盖掉argv[0]为我们想要的地址。（详见附录）</p>
 <p>附录：</p>
 <p><a href="https://veritas501.space/2017/04/28/%E8%AE%BAcanary%E7%9A%84%E5%87%A0%E7%A7%8D%E7%8E%A9%E6%B3%95/">https://veritas501.space/2017/04/28/%E8%AE%BAcanary%E7%9A%84%E5%87%A0%E7%A7%8D%E7%8E%A9%E6%B3%95/</a></p>
-<h1 id="_1"><strong>格式化字符串</strong><a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
-<h3 id="_2"><strong>基本知识：</strong><a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<h2 id="_1"><strong>格式化字符串</strong><a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h4 id="_2"><strong>基本知识：</strong><a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
 <p>n$:获取格式化字符串中的指定参数</p>
 <p>hh:一个字节    h:双字节</p>
 <p>%p:十六进制地址格式打印变量的值</p>
 <p>%n:不输出，把已成功输出的字符个数写入对应参数所指的变量</p>
 <p>%%:输出一个%</p>
-<h3 id="_3"><strong>泄露任意地址内存：</strong><a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<h4 id="_3"><strong>泄露任意地址内存：</strong><a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
 <p>用:[tag]%p%p%p%p%p%p... 来测试需要输入的格式化字符串（恶意）是输出函数的第几个参数。</p>
-<h3 id="_4"><strong>覆盖内存：</strong><a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<h4 id="_4"><strong>覆盖内存：</strong><a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
 <p>...[overwrite addr]....%[overwrite offset]$n</p>
 <p>找到地址，然后确定该地址是第几个参数。</p>
 <p>覆盖小数字：前面放padding，要覆盖的地址放在后面。</p>
 <p>覆盖大数字：使用%hhn截断，按每个字节写入</p>
-<h3 id="hijack-got"><strong>Hijack GOT:</strong><a class="headerlink" href="#hijack-got" title="Permanent link">&para;</a></h3>
+<h4 id="hijack-got"><strong>Hijack GOT:</strong><a class="headerlink" href="#hijack-got" title="Permanent link">&para;</a></h4>
 <p>确定函数A的GOT表地址，确定函数B的内存地址，将函数B的内存地址写入到函数A的GOT表地址处。</p>
 <p>Pwntools的fmtstr_payload函数，例如：fmtstr_payload(7, {puts_got: system_addr}) 的意思就是，我的格式化字符串的偏移是 7，我希望在 puts_got 地址处写入 system_addr 这个数据。</p>
-<h3 id="hijack-retaddr"><strong>Hijack Retaddr：</strong><a class="headerlink" href="#hijack-retaddr" title="Permanent link">&para;</a></h3>
+<hr />
+<h4 id="hijack-retaddr"><strong>Hijack Retaddr：</strong><a class="headerlink" href="#hijack-retaddr" title="Permanent link">&para;</a></h4>
 <p>直接修改为想要跳转的地址。</p>
-<h1 id="_5"><strong>栈溢出</strong><a class="headerlink" href="#_5" title="Permanent link">&para;</a></h1>
-<h3 id="_6"><strong>基本知识：</strong><a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<h2 id="_5"><strong>栈溢出</strong><a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h4 id="_6"><strong>基本知识：</strong><a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
 <p>1、局部变量和全局变量都是先定义的在低地址，后定义的在高地址。</p>
 <p>2、ELF编译时加了PIE选项后为so文件</p>
 <p>3、plt表存got表项地址，got表存的是真正的函数地址（在未调用过一次函数前，got表存的是plt表下一条指令地址，调用过一次之后才是真正函数地址）。plt表在代码段，got表在数据段，plt表可以跳到got表地址。</p>
@@ -532,13 +1173,14 @@
 <p>leave: mov rsp,rbp; pop rbp</p>
 <p>8、gets函数遇到回车才结束，回车被自动转换成’\0’存到字符串。read函数无0截断。</p>
 <p>9、gdb默认关闭ASLR，要开启需要：set disable-randomization off</p>
-<h3 id="ret2text"><strong>ret2text:</strong><a class="headerlink" href="#ret2text" title="Permanent link">&para;</a></h3>
+<hr />
+<h4 id="ret2text"><strong>ret2text:</strong><a class="headerlink" href="#ret2text" title="Permanent link">&para;</a></h4>
 <p>直接溢出改返回地址</p>
-<h3 id="ret2shellcode"><strong>ret2shellcode:</strong><a class="headerlink" href="#ret2shellcode" title="Permanent link">&para;</a></h3>
+<h4 id="ret2shellcode"><strong>ret2shellcode:</strong><a class="headerlink" href="#ret2shellcode" title="Permanent link">&para;</a></h4>
 <p>vmmap查看段执行权限，例如bss段。把shellcode放到bss段中，改返回地址跳转到shellcode。</p>
 <p>shellcode = asm(shellcraft.sh())</p>
 <p>注意64位要修改：context.bits=64 ; context.arch='amd64'</p>
-<h3 id="ret2syscall"><strong>ret2syscall:</strong><a class="headerlink" href="#ret2syscall" title="Permanent link">&para;</a></h3>
+<h4 id="ret2syscall"><strong>ret2syscall:</strong><a class="headerlink" href="#ret2syscall" title="Permanent link">&para;</a></h4>
 <p>利用如下系统调用来获取shell。</p>
 <p>execve("/bin/sh",NULL,NULL)</p>
 <p>32位系统：eax为系统调用号0xb，ebx指向/bin/sh地址，ecx、edx为0。</p>
@@ -550,7 +1192,7 @@
 <p>ROPgadget --binary filename --only ‘int’</p>
 <p>以上为32位，64位的不同之处除了使用的寄存器之外，64位并不使用int 0x80，而是使用syscall，两者机器码并不相同。</p>
 <p>32位execve调用号是0xb，64位是0x3b，两者都是存在eax(rax)寄存器中</p>
-<h3 id="ret2libc"><strong>ret2libc:</strong><a class="headerlink" href="#ret2libc" title="Permanent link">&para;</a></h3>
+<h4 id="ret2libc"><strong>ret2libc:</strong><a class="headerlink" href="#ret2libc" title="Permanent link">&para;</a></h4>
 <ul>
 <li>泄露 __libc_start_main 地址</li>
 <li>获取 libc 版本</li>
@@ -559,11 +1201,11 @@
 <li>触发栈溢出执行 system(‘/bin/sh’)</li>
 </ul>
 <p>Ret2libc3要注意开始时把esp进行了and操作，最低4位清0</p>
-<h3 id="ret2csu"><strong>ret2csu:</strong><a class="headerlink" href="#ret2csu" title="Permanent link">&para;</a></h3>
+<h4 id="ret2csu"><strong>ret2csu:</strong><a class="headerlink" href="#ret2csu" title="Permanent link">&para;</a></h4>
 <p>利用__libc_csu_init函数中的gadgets，可以控制rbx,rbp,r12,r13,r14,r15的数据，其中可以通过r13,r14,r15控制rdx,rsi,edi的数据，通过rbx和r12的配合控制跳转到想要的函数。注意是call  qword ptr [r12+rbx*8]，会先取地址内容再跳转，所以不能填plt表而应该是got表。</p>
 <p>控制rbx+1=rbp，则不会跳转，进行顺序执行。但是要注意会一直执行到retn，所以要构造padding长度为0x38用来pop。</p>
 <p>libc_csu_init的尾部可以通过偏移，还能控制rbp和rsi寄存器。</p>
-<h3 id="ret2dl_resolve"><strong>ret2dl_resolve:</strong><a class="headerlink" href="#ret2dl_resolve" title="Permanent link">&para;</a></h3>
+<h4 id="ret2dl_resolve"><strong>ret2dl_resolve:</strong><a class="headerlink" href="#ret2dl_resolve" title="Permanent link">&para;</a></h4>
 <p>参考：<a href="http://pwn4.fun/2016/11/09/Return-to-dl-resolve/；">http://pwn4.fun/2016/11/09/Return-to-dl-resolve/；</a></p>
 <p><a href="http://rk700.github.io/2015/08/09/return-to-dl-resolve/">http://rk700.github.io/2015/08/09/return-to-dl-resolve/</a>（这个没看，有空看看）</p>
 <p>Stage1：普通ROP</p>
@@ -574,8 +1216,8 @@
 <p>Stage6：和stage5同理，实战。把字符串改为”system\x00”，即可解析成system函数。</p>
 <p><strong>附录：</strong></p>
 <p>roputils工具：<a href="https://github.com/inaz2/roputils">https://github.com/inaz2/roputils</a></p>
-<h1 id="_7"><strong>堆</strong><a class="headerlink" href="#_7" title="Permanent link">&para;</a></h1>
-<h3 id="_8"><strong>基本知识：</strong><a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<h2 id="_7"><strong>堆</strong><a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h4 id="_8"><strong>基本知识：</strong><a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
 <ol>
 <li>
 <p>当调用free函数的时候<code>__free_hook</code>不为NULL会优先调用<code>__free_hook</code>函数劫持free函数。当GOT表不能修改时，可考虑修改<code>__free_hook</code>指向的内容为想要的函数(如system)，要被释放的堆地址为参数，达到free(addr)=system(addr)的效果。修改<code>__malloc_hook</code>后，可考虑通过连续释放同一堆块（double free）进行触发，程序会报错，但会调用backtrace_and_map函数之后调用malloc函数。</p>
@@ -609,8 +1251,8 @@
 <p>当申请的堆块大于当前的top chunk size且小于用mmap分配的阈值时，系统会将原来的top chunk 放到**unsorted bin**中，同时分配新的较大的top chunk出来。</p>
 </li>
 <li>
-<h1 id="define-malloc_alignment-2-size_sz">define MALLOC_ALIGNMENT       (2 * SIZE_SZ)<a class="headerlink" href="#define-malloc_alignment-2-size_sz" title="Permanent link">&para;</a></h1>
-<h1 id="define-malloc_align_mask-malloc_alignment-1">define MALLOC_ALIGN_MASK (MALLOC_ALIGNMENT - 1)<a class="headerlink" href="#define-malloc_align_mask-malloc_alignment-1" title="Permanent link">&para;</a></h1>
+<p><code>#define MALLOC_ALIGNMENT       (2 * SIZE_SZ)
+    #define MALLOC_ALIGN_MASK (MALLOC_ALIGNMENT - 1)</code></p>
 </li>
 <li>
 <p><img alt="1570087991353" src="C:\Users\obliviate\AppData\Roaming\Typora\typora-user-images\1570087991353.png" /></p>
@@ -622,24 +1264,24 @@
 <p>calloc不会分配tcache中的堆</p>
 </li>
 </ol>
-<h3 id="unlink"><strong>Unlink:</strong><a class="headerlink" href="#unlink" title="Permanent link">&para;</a></h3>
+<h4 id="unlink"><strong>Unlink:</strong><a class="headerlink" href="#unlink" title="Permanent link">&para;</a></h4>
 <p>在博客上写</p>
-<h3 id="uaf"><strong>UAF：</strong><a class="headerlink" href="#uaf" title="Permanent link">&para;</a></h3>
+<h4 id="uaf"><strong>UAF：</strong><a class="headerlink" href="#uaf" title="Permanent link">&para;</a></h4>
 <p>堆被释放，但指针未被置null</p>
-<h3 id="fastbin-double-free"><strong>Fastbin double free:</strong><a class="headerlink" href="#fastbin-double-free" title="Permanent link">&para;</a></h3>
+<h4 id="fastbin-double-free"><strong>Fastbin double free:</strong><a class="headerlink" href="#fastbin-double-free" title="Permanent link">&para;</a></h4>
 <p>通过构造出A-&gt;B-&gt;A的fastbin，申请A，从而可以修改A的fd域，第二次再申请A的时候就可以修改想要的地址。要注意对size的检查，需要符合当前bin的size</p>
-<h3 id="house-of-spirit"><strong>House of spirit:</strong><a class="headerlink" href="#house-of-spirit" title="Permanent link">&para;</a></h3>
+<h4 id="house-of-spirit"><strong>House of spirit:</strong><a class="headerlink" href="#house-of-spirit" title="Permanent link">&para;</a></h4>
 <p>伪造块，free掉再申请，从而实现分配到的堆块是我们伪造的堆块。需要注意size符合要求，块地址对齐， ISMMAP 不能为1</p>
-<h3 id="chunk-overlap">Chunk overlap:<a class="headerlink" href="#chunk-overlap" title="Permanent link">&para;</a></h3>
+<h4 id="chunk-overlap">Chunk overlap:<a class="headerlink" href="#chunk-overlap" title="Permanent link">&para;</a></h4>
 <ol>
 <li>free掉一个unsorted chunk A，这样它下一个chunk B（物理高地址相邻）的prev_size就是这个A的size</li>
 <li>把A的size改小，然后分配至少两次（假设分配两次，把原来的A拆分得到C和D），由于改小了，因此分配时并不会影响到B的prev_size和size的prev_in_use位，当然这里要注意构造下fake chunk防止分配C时被check</li>
 <li>free C，free B（在free B的时候，因为prev_size没有改过，还是A的size，因此相当于把A和B合并起来了，得到E）</li>
 <li>E进入unsorted bin，但显然D也在E中，就有UAF，之后就常规利用了</li>
 </ol>
-<h3 id="unsorted-bin-attack"><strong>Unsorted bin attack:</strong><a class="headerlink" href="#unsorted-bin-attack" title="Permanent link">&para;</a></h3>
+<h4 id="unsorted-bin-attack"><strong>Unsorted bin attack:</strong><a class="headerlink" href="#unsorted-bin-attack" title="Permanent link">&para;</a></h4>
 <p>不满足fastsize的chunk被free后进入unsorted bin，当从unsorted bin中取出一个chunk p时，会把p-&gt;bk-&gt;fd置为一个很大的数（main_arena中的一个地址），因此如果能改bk就能把某个地址的值设为很大，一般可以改global_max_fast</p>
-<h3 id="small-bin-attackhouse-of-lore">Small bin attack(House of Lore):<a class="headerlink" href="#small-bin-attackhouse-of-lore" title="Permanent link">&para;</a></h3>
+<h4 id="small-bin-attackhouse-of-lore">Small bin attack(House of Lore):<a class="headerlink" href="#small-bin-attackhouse-of-lore" title="Permanent link">&para;</a></h4>
 <p>利用条件：①可以控制在small bin中的chunk的bk指针 ②可以控制指定位置的fd、bk指针</p>
 <p>Small bin的check检查了victim-&gt;bk-&gt;fd==victim，victim为待unlink的堆，把bk改为想要的位置fake chunk，同时那个位置的fd指针改为victim，即可绕过第一次check，分配到victim。然后fake chunk的bk要指向一个可控制的地方，让该处的fd为fake chunk，即可绕过第二次check，分配到fake chunk。</p>
 <div class="codehilite"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">in_smallbin_range</span><span class="p">(</span><span class="n">nb</span><span class="p">))</span> <span class="p">{</span>
@@ -683,7 +1325,7 @@
     <span class="p">}</span>
 </pre></div>
 
-<h3 id="large-bin-attack"><strong>Large bin attack:</strong>（还不太懂）<a class="headerlink" href="#large-bin-attack" title="Permanent link">&para;</a></h3>
+<h4 id="large-bin-attack"><strong>Large bin attack:</strong>（还不太懂）<a class="headerlink" href="#large-bin-attack" title="Permanent link">&para;</a></h4>
 <p>参考：</p>
 <p><a href="https://veritas501.space/2018/04/11/Largebin %E5%AD%A6%E4%B9%A0/">https://veritas501.space/2018/04/11/Largebin%20%E5%AD%A6%E4%B9%A0/</a></p>
 <p>控制一个unsorted chunk和一个large chunk，unsorted chunk控制bk，large chunk控制bk和bk_nextsize。（下面说的是unsorted chunk&gt;large chunk）</p>
@@ -695,11 +1337,11 @@
 <p>之后还有一些代码，如下图，又是任意地址写堆地址。这里的bck-&gt;fd要让它改到size域，单字节，使得它满足你想要的大小。</p>
 <p><img alt="img" src="file:///C:\Users\HP\AppData\Local\Temp\ksohtml13640\wps8.jpg" /> </p>
 <p>最后分配得到的就是你在unsorted chunk的bk域里伪造的那个堆。</p>
-<h3 id="house-of-force"><strong>House of force:</strong><a class="headerlink" href="#house-of-force" title="Permanent link">&para;</a></h3>
+<h4 id="house-of-force"><strong>House of force:</strong><a class="headerlink" href="#house-of-force" title="Permanent link">&para;</a></h4>
 <p>利用条件：①可以控制top chunk的size域  ②可以申请任意大小的堆</p>
 <p>设fake chunk地址为A，当前top chunk地址为B。这时偏移为A-B。接下来要计算申请的堆大小req。根据glibc代码，需要满足：req+SIZE_SZ+MALLOC_ALIGN_MASK=偏移=A-B。</p>
 <p>这时req=A-B-SIZE_SZ-MALLOC_ALIGN_MASK，然后malloc(req)。这时top chunk就指向了你想要的地址A。再申请就会返回地址为A的chunk。</p>
-<h3 id="house-of-einherjar">House of Einherjar:<a class="headerlink" href="#house-of-einherjar" title="Permanent link">&para;</a></h3>
+<h4 id="house-of-einherjar">House of Einherjar:<a class="headerlink" href="#house-of-einherjar" title="Permanent link">&para;</a></h4>
 <p>利用条件：①可以控制1个非fast chunk A的prev size域 ②可以让A的prev_in_use域为0</p>
 <p>原理是利用**unlink**。把A的prev_in_use域置0，在free A的时候会触发后向合并，把A和A-prev size的fake chunk合并。其中的check和unlink时的check一样：</p>
 <div class="codehilite"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">__builtin_expect</span> <span class="p">(</span><span class="n">FD</span><span class="o">-&gt;</span><span class="n">bk</span> <span class="o">!=</span> <span class="n">P</span> <span class="o">||</span> <span class="n">BK</span><span class="o">-&gt;</span><span class="n">fd</span> <span class="o">!=</span> <span class="n">P</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>                      
@@ -713,20 +1355,20 @@
 </pre></div>
 
 <p>所以只需P+size，就是glibc认为的下一个chunk的prev_size域，等于P的size域即可。</p>
-<h3 id="house-of-orange">House of Orange:<a class="headerlink" href="#house-of-orange" title="Permanent link">&para;</a></h3>
+<h4 id="house-of-orange">House of Orange:<a class="headerlink" href="#house-of-orange" title="Permanent link">&para;</a></h4>
 <p>利用条件：当程序中没有free函数时使用（需要能改top chunk size？感觉不一定，但资料这么写）</p>
 <p>当top chunk不能满足当前分配的需求时，会用brk拓展堆，之前的top chunk就会被放入unsorted bin中</p>
 <p>注意事项：①伪造的top chunk size必须要对齐到内存页（即后3位） ②size要大于MINSIZE  ③size要小于之后申请的chunk size+MINSIZE  ④size的prev_in_use位为1</p>
-<h3 id="house-of-roman">House of Roman:<a class="headerlink" href="#house-of-roman" title="Permanent link">&para;</a></h3>
+<h4 id="house-of-roman">House of Roman:<a class="headerlink" href="#house-of-roman" title="Permanent link">&para;</a></h4>
 <p>利用条件：①无法leak ②存在UAF漏洞  ③可以生成fast chunk和unsorted chunk</p>
 <p>先通过fast bin attack，使得fast chunk的fd域存有main_arena相关的地址，通过改低字节，申请到<code>__malloc_hook-0x23</code>作为fake chunk。然后通过unsorted bin attack，使得unsorted chunk的bk域存有main_arena相关地址，通过改低字节，把<code>__malloc_hook</code>的值改为一个和main_arena相关的地址。最后利用前面fast bin attack得到的fake chunk，改低字节，把main_arena相关改成one_gadget。最后double free触发one_gadget，选取rsp+0x50那个成功率较高。</p>
-<h3 id="tcache-attack">Tcache Attack:<a class="headerlink" href="#tcache-attack" title="Permanent link">&para;</a></h3>
+<h4 id="tcache-attack">Tcache Attack:<a class="headerlink" href="#tcache-attack" title="Permanent link">&para;</a></h4>
 <h5 id="tcache-poisoning">tcache poisoning:<a class="headerlink" href="#tcache-poisoning" title="Permanent link">&para;</a></h5>
 <p>和fast bin attack类似，改fd，但没有了size的限制</p>
 <h5 id="tcache-dup">tcache dup:<a class="headerlink" href="#tcache-dup" title="Permanent link">&para;</a></h5>
 <p>2.27：double free，但没有任何检查，可以直接double free</p>
 <p>2.29：对double free加入检查，如果发现在当前tcache中已有待free的堆，则报错；但如果同一个堆在两个tcache中存在不会报错</p>
-<h1 id="io_file">IO_FILE利用<a class="headerlink" href="#io_file" title="Permanent link">&para;</a></h1>
+<h2 id="io_file">IO_FILE利用<a class="headerlink" href="#io_file" title="Permanent link">&para;</a></h2>
 <h3 id="_9">基础知识：<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
 <ol>
 <li>
@@ -792,7 +1434,7 @@
 <p>libc_message-&gt;__GI_abort -&gt; _IO_flush_all_lockp -&gt; _IO_OVERFLOW</p>
 <h3 id="io_file_to_leak">IO_FILE_to_leak<a class="headerlink" href="#io_file_to_leak" title="Permanent link">&para;</a></h3>
 <p>改<code>_IO_2_1_stdout_</code>的flag为0xfbad1800，然后后面加p64(0)*3+'\x00'，改小<code>_IO_write_base</code>，从而可以多输出一点信息，其中包括libc地址，可以找到<code>_IO_file_jumps</code></p>
-<h1 id="pwn">内核Pwn<a class="headerlink" href="#pwn" title="Permanent link">&para;</a></h1>
+<h2 id="pwn">内核Pwn<a class="headerlink" href="#pwn" title="Permanent link">&para;</a></h2>
 <h3 id="_10">环境配置<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
 <p>环境配置参考：</p>
 <p><a href="http://blog.eonew.cn/archives/1162">http://blog.eonew.cn/archives/1162</a> </p>
@@ -832,7 +1474,7 @@ qemu-system-x86_64 \
 <p>dmesg：开机信息（ /proc/sys/kernel/dmesg_restrict 为1则不能输出）</p>
 <p>/proc/kallsyms ：保存地址的文件，可以获取commit_creds和prepare_kernel_creds的地址（ /proc/sys/kernel/kptr_restrict 为1则不能输出）</p>
 <p>执行 commit_creds(prepare_kernel_cred(0)) 即可获得 root 权限 </p>
-<h1 id="gdbglibc"><strong>gdb调试glibc</strong><a class="headerlink" href="#gdbglibc" title="Permanent link">&para;</a></h1>
+<h2 id="gdbglibc"><strong>gdb调试glibc</strong><a class="headerlink" href="#gdbglibc" title="Permanent link">&para;</a></h2>
 <div class="codehilite"><pre><span></span>sudo apt-get install glibc-source 
 
 sudo apt-get install libc6-dbg 
@@ -848,7 +1490,7 @@ pwndbg&gt; b _int_malloc（要断的函数）
 </pre></div>
 
 <p>如果出现<code>Function "_int_malloc" not defined.</code>，别慌，把程序运行起来再断就好。</p>
-<h1 id="_12">实用小知识：<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h1>
+<h2 id="_12">实用小知识：<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
 <ol>
 <li>libc中存储了main函数environ指针的地址，通过该指针可以找到main函数的返回地址存的地方A（在栈上），即通过environ泄漏栈地址：</li>
 </ol>
