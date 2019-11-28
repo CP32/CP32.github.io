@@ -83,6 +83,10 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
+      <a href="#tracemeexe" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
     
       <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid">
@@ -369,9 +373,91 @@
     <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
     
     
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        第2章 动态分析技术
+      </label>
+    
     <a href="./" title="第2章 动态分析技术" class="md-nav__link md-nav__link--active">
       第2章 动态分析技术
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tracemeexe" class="md-nav__link">
+    TraceMe.exe流程分析
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    常用断点
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#int3" class="md-nav__link">
+    INT3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    硬件断点
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    内存断点
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    消息断点
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    条件断点
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    条件消息断点
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -388,6 +474,90 @@
               </div>
             
             
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tracemeexe" class="md-nav__link">
+    TraceMe.exe流程分析
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    常用断点
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#int3" class="md-nav__link">
+    INT3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    硬件断点
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    内存断点
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    消息断点
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    条件断点
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    条件消息断点
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content">
             <article class="md-content__inner md-typeset">
@@ -396,7 +566,52 @@
                 
                   <h1>第2章 动态分析技术</h1>
                 
-                
+                <p>pizza大佬和阿鹏大佬之前推荐了xdbg，我也觉得xdbg的界面看起来更舒服。但在这一章里面xdbg篇幅很少，主要篇幅为ollydbg和windbg，不过主要的功能应该调试器都有，因此决定照着ollydbg的功能去摸索xdbg对应的功能，windbg较为硬核，待接触到内核部分再去了解。</p>
+<h3 id="tracemeexe">TraceMe.exe流程分析<a class="headerlink" href="#tracemeexe" title="Permanent link">&para;</a></h3>
+<p>进入到子程序后，若想回看刚才单步跟踪的代码，可以按“-”（减号）键；若想让光标回到当前EIP，可以双击EIP寄存器</p>
+<p>Ctrl+F9：执行到返回指令处</p>
+<p>Alt+F9：执行到用户代码</p>
+<p>获取文本框中的字符，通常使用GetDlgItemText或者GetWindowText函数</p>
+<p>GetDlgItemText函数执行后，会把取出的文本放到由lpString指定的位置，是第三个参数</p>
+<p>TraceMe.exe破解脚本：</p>
+<div class="codehilite"><pre><span></span><span class="c1">#部分输入和常量表进行运算，直接照着校验逻辑写破解脚本即可；后续可把用户名随机生成从而得到序列号集</span>
+<span class="n">const</span> <span class="o">=</span> <span class="p">[</span><span class="mh">0x0C</span><span class="p">,</span> <span class="mh">0x0A</span><span class="p">,</span> <span class="mh">0x13</span><span class="p">,</span> <span class="mh">0x09</span><span class="p">,</span> <span class="mh">0x0C</span><span class="p">,</span> <span class="mh">0x0B</span><span class="p">,</span> <span class="mh">0x0A</span><span class="p">,</span> <span class="mh">0x08</span><span class="p">]</span>
+<span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;obliviate&quot;</span>
+<span class="nb">sum</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">j</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">name</span><span class="p">)):</span>
+    <span class="nb">sum</span> <span class="o">+=</span> <span class="nb">ord</span><span class="p">(</span><span class="n">name</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="n">const</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+    <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">sum</span><span class="p">)</span>
+</pre></div>
+
+<h3 id="_1">常用断点<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<h4 id="int3">INT3<a class="headerlink" href="#int3" title="Permanent link">&para;</a></h4>
+<p>最常用，把指令机器码改成0xCC；绕过检测可以把断点设在函数内</p>
+<h4 id="_2">硬件断点<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<p>对着想要断下的地址右键-断点-硬件断点，即可断下，最多可设置4个</p>
+<p>原理：和DRx调试寄存器（DR0~DR7）有关</p>
+<p>DR0~DR3：调试地址寄存器，保存硬件断点监视的地址</p>
+<p>DR4~DR5：保留</p>
+<p>DR6：调试寄存器组状态寄存器，用于记录是在哪个硬件断点断下。如果是DR0，那么DR6的第0位（最低位）被置1；如果是DR1，那么DR6的第1位置1，以此类推。</p>
+<p>DR7：调试寄存器组控制寄存器</p>
+<p><img alt="" src="https://github.com/CP32/ctf-pwn/blob/master/pictures/DR7.jpg?raw=true" /></p>
+<p>L0和G0（各1位）：控制DR0是全局断点还是局部断点，G0=1则为全局，L0=1则为局部，L0/G0~L3/G3同理</p>
+<p>LEN0（2位）：指定断点下断的长度，00为1字节，01为2字节，11为4字节，LEN1~LEN3同理</p>
+<p>R/W0：指定断点触发条件，00为只执行，01为写入数据，10为I/O端口断点，11为读或写数据断点，R/W1~3同理</p>
+<p>GD：保护DRx，如果GD位为1，对DRx的任何访问都会触发int 1</p>
+<h4 id="_3">内存断点<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
+<p>同上，对着想要断下的地址右键-断点-内存断点，最多可设置1个</p>
+<p>原理：对所设的地址赋予不可访问/不可写属性，这样当访问/写入时就会产生异常</p>
+<p>硬件访问/写入断点是在触发硬件断点的下一条指令处断下，而内存断点是在触发断点的指令处断下</p>
+<h4 id="_4">消息断点<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
+<p>在句柄选项中的窗口列表，根据文本信息（比如一个按钮会有按钮上的字）找到相应的句柄，右击-消息断点，然后选择断在哪种消息。比如要在鼠标左键点击断下，就选择WM_LBUTTONUP</p>
+<h4 id="_5">条件断点<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<p>对着要断的地址，右键-条件断点，之后设置条件</p>
+<h4 id="_6">条件消息断点<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
+<p>在条件断点的基础上，可以选择输出日志，格式参考：<a href="http://help.x64dbg.com/en/latest/introduction/Formatting.html">http://help.x64dbg.com/en/latest/introduction/Formatting.html</a></p>
+<p>比如输出寄存器eax的值，使用{eax}；</p>
+<p>输出某个地址的值，使用{mem;size@addr}，其中size为字节数，addr为地址，但这个需要注意输出日志似乎是大端序</p>
                 
                   
                 
